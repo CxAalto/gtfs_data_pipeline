@@ -95,6 +95,8 @@ def main():
                         pipeline.deploy_output_directory_to_server()
                     elif cmd == "clear":
                         pipeline.clear()
+                    elif cmd == "clean":
+                        pipeline.remove_temporary_files()
                     elif cmd == "clear_main":
                         pipeline.clear()
                         pipeline._create_raw_db()
@@ -243,6 +245,9 @@ class ExtractPipeline(object):
         self._create_zip()
         self._create_thumbnail_for_web()  # not part of the data extract, goes to web only
         self._write_city_notes()
+
+    @flushed
+    def remove_temporary_files(self):
         self.remove_temporary_files() # if there are any left
 
     @flushed
