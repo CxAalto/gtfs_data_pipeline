@@ -1,0 +1,4 @@
+copies_from_hammer/
+import_logs/
+licenses/__pycache__/*
+__pycache__/*pyc
