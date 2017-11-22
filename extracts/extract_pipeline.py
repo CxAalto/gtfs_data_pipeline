@@ -38,7 +38,6 @@ matplotlib.use("agg")
 AVAILABLE_COMMANDS = ['full',
                       "thumbnail",
                       "licenses",
-                      "remove_temporary_files",
                       "clear",
                       "deploy_to_server",
                       "copy_from_hammer",
@@ -83,8 +82,6 @@ def main():
                         pipeline.import_original_feeds_into_raw_db()
                     elif cmd == "full":
                         pipeline.run_full_without_deploy()
-                    elif cmd == "remove_temporary_files":
-                        pipeline.remove_temporary_files()
                     elif cmd == "licenses":
                         pipeline._create_license_files()
                     elif cmd == "thumbnail":
@@ -247,10 +244,6 @@ class ExtractPipeline(object):
         self._write_city_notes()
 
     @flushed
-    def remove_temporary_files(self):
-        self.remove_temporary_files() # if there are any left
-
-    @flushed
     def _create_raw_db(self):
         self.import_original_feeds_into_raw_db()
         self._correct_coordinates_for_raw_db()
@@ -268,7 +261,6 @@ class ExtractPipeline(object):
         self._add_city_name_to_week_gtfs_db()
         self._write_stats()
         self._create_license_files()
-        self.remove_temporary_files()
 
     @flushed
     def _compute_stop_distances_osm_for_main_db(self):
