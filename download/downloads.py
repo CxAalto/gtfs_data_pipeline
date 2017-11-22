@@ -237,7 +237,6 @@ class Location(object):
     # Getting information about available files
     def list_dates(self):
         """List all dates for which any files may have been downloaded."""
-        print(self.rawdir)
         if not os.path.isdir(self.rawdir):
             return [ ]
         names = os.listdir(self.rawdir)
