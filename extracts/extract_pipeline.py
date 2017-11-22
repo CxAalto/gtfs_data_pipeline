@@ -8,55 +8,28 @@ from zipfile import ZipFile
 import pandas
 
 from feed_manager import FeedManager
-from gtfspy import exports
-from gtfspy import filter
-from gtfspy import import_validator
-from gtfspy import timetable_validator
-from gtfspy import util
+from gtfspy import exports, filter, import_validator, timetable_validator, util
 from gtfspy.geometry import get_approximate_convex_hull_area_km2
 from gtfspy.gtfs import GTFS
 from gtfspy.networks import combined_stop_to_stop_transit_network
 from licenses.adapt_licenses import create_license_files
 from read_to_publish_csv import to_publish_generator
-from settings import COUNTRY_FEED_LIST, \
-    TO_PUBLISH_ROOT_OUTPUT_DIR, SQLITE_ENDING, \
-    COUNTRY_FEEDS_DIR, THUMBNAIL_DIR, GTFS_ZIPFILE_BASENAME
+from settings import COUNTRY_FEED_LIST, TO_PUBLISH_ROOT_OUTPUT_DIR, SQLITE_ENDING, COUNTRY_FEEDS_DIR, \
+    THUMBNAIL_DIR, GTFS_ZIPFILE_BASENAME
 from city_notes import CITY_ID_TO_NOTES_STR
+
 """
-This file finds, imports, filters and validates one or several raw gtfs files using the existing packages.
+This script finds, imports, filters and validates one or several raw gtfs files.
 
 Preparations:
-- identify needed rawfolders from to_publish.csv ->
+- Identify needed rawfolders from to_publish.csv ->
   browse trough all; create list of all feeds: city, feed, date1, date2, date3...
-- Manually check that all subfeeds are available for the wanted extract period (download date).
+- Check that all subfeeds are available for the wanted extract period (download date).
   Note that some subfeeds have been renamed.
-  Especially subfeeds named "main" have been replaced in cities where new subfeeds have been added.
 
-run:
 Input: rawfolder, download date, city, to_publish.csv
-1. Read to_publish.csv (done in read_to_publish_csv.py)
-2. Merge all subfeeds within the import process
- - TODO: create directory structure
-3. Filter using (gtfspy/filter.py):
- - Geographic area defined in to_publish.csv
- - Dates that are covered by all subfeeds
-4. Validation
- - Validation by checking that everything has been imported -> row counts, null counts (gtfspy/import_validator.py)
- - Validation of timetable data (gtfspy/timetable_validator.py)
-5. Create report containing:
- - Validity warnings
- - Feed stats
- - Number of trips per day, for all days within the extract
-5. Check suitable days for daily extract, criteria:
- - "Normal day": at least 90 % of the maximum number of trips per day
- - Download date the first candidate
- - If downolad date does not fill the criteria, the process will seek check trough the other days
 
-Encountered problems:
-- multiple time zones in gtfs (Belgium) - fixed
-- country feeds are imported several times = unnecessary -> country extracts handled separately - fixed
-
- 6. Manual validation
+See ExtractPipeline.run_full_without_deploy for details on what is done.
 """
 
 import matplotlib
@@ -70,12 +43,12 @@ AVAILABLE_COMMANDS = ['full',
                       "deploy_to_server",
                       "copy_from_hammer",
                       "import_raw",
-                      "clear_main"]
+                      "clear_main",
+                      "extract_start_date"]
 
 SUCCESS = True
 
 def main():
-    print("TODO: hack to fix known wrong stop coordinates and missing trips table entries?")
     try:
         cmd = sys.argv[1]
     except IndexError:
@@ -126,6 +99,8 @@ def main():
                         pipeline.clear()
                         pipeline._create_raw_db()
                         pipeline._main_db_extract()
+                    elif cmd == "extract_start_date":
+                        pipeline.print_weekly_extract_start_and_download_dates()
                 except Exception as e:
                     print("(Probably) the ExtractPipeline object could not be created for city",
                           to_publish_tuple.id, to_publish_tuple.download_date, " :")
@@ -610,6 +585,13 @@ class ExtractPipeline(object):
         print('overlap start date: ' + overlapping_start_date + ' , overlap end date: ' + overlapping_end_date)
         return overlapping_start_date, overlapping_end_date
 
+    def print_weekly_extract_start_and_download_dates(self):
+        main_G = GTFS(self.main_db_path)
+
+        assert isinstance(main_G, GTFS)
+        day_extract_date_start = main_G.get_weekly_extract_start_date()
+        print("Weekly extract start date: " + str(day_extract_date_start))
+        print("Download date: " + str(self.download_date))
 
     @flushed
     def __create_temporal_extract_from_main_db(self, days, output_db_path):
