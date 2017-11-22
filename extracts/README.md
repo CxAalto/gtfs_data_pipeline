@@ -1,4 +1,4 @@
-### Contents of src/
+### Contents
 
 #### Core
 - `extract_pipeline.py`:
@@ -9,12 +9,11 @@
     Reads in the to_publish_csv
 - `settings.py`:
     Information on various input and output file paths.
+- `licenses/`:
+    Code and material for documenting the licensing terms of each fed.
+
 
 #### Other
 
-- `import_all_extracts.py`:
-    Script for importing all extracts, deprecated?
-- `Makefile_data_filter_helper.py`:
-    Helper script for Makefile_data (located in parent directory) for
-    filtering list of feeds based on given rules.
-
+- `create_multiple_extracts.py`:
+    Script for importing multiple
