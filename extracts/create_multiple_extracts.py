@@ -27,12 +27,14 @@ def main():
     for command in commands:
         logfile_path = get_logfile_base(command)
         for city_id in cities_to_import:
-            print_dates_for_a_city(city_id)
-            # print(city_id)
-            # copy_from_hammer(city_id)
-            # continue
-            # standard processes
-            continue
+            if command == "extract_start_date":
+                print_dates_for_a_city(city_id)
+                continue
+            elif command == "copy_from_hammer":
+                print(city_id)
+                copy_from_hammer(city_id)
+                continue
+            # standard process
             with open(logfile_path + "_" + city_id + ".txt", 'w', buffer_by_line) as logfile:
                 p = subprocess.Popen(['python', 'extract_pipeline.py', command, str(city_id)], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 for line in iter(p.stdout.readline, b''):
@@ -46,8 +48,9 @@ def print_dates_for_a_city(city):
             try:
                 pipeline = ExtractPipeline(to_publish_tuple, feeds)
                 pipeline.plot_weekly_extract_start_and_download_dates()
-            except:
-                print("Something went wrong with city " + city)
+            except Exception as e:
+                print("Something went wrong with city " + city + " :")
+                print(str(e))
 
 
 def copy_from_hammer(city_id):
