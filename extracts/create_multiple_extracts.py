@@ -23,9 +23,9 @@ def main():
     commands = ["extract_start_date"]  # "clear", "full"]
 
     print("Cities to import: ", cities_to_import)
-    logfile_path = get_logfile_base()
     buffer_by_line = 1
     for command in commands:
+        logfile_path = get_logfile_base(command)
         for city_id in cities_to_import:
             print_dates_for_a_city(city_id)
             # print(city_id)
@@ -57,7 +57,7 @@ def copy_from_hammer(city_id):
     print(copy_command)
     subprocess.call(copy_command, shell=True)
 
-def get_logfile_base():
+def get_logfile_base(command):
     try:
         assert os.path.exists("import_logs")
     except AssertionError:
@@ -68,6 +68,8 @@ def get_logfile_base():
     while os.path.exists(logfile_path_base.format(i=i)):
         i += 1
     logfile_path = logfile_path_base.format(i=i)
+    with open(logfile_path, 'w') as logfile:
+        logfile.write(command)
     subprocess.call(["touch", logfile_path])
     print("Logfile bases: " + logfile_path)
     return logfile_path
