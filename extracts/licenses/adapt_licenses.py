@@ -13,7 +13,7 @@ DECONET_AUTHORS_STR = "Rainer Kujala, Christoffer Weckström and Richard Darst"
 
 READY_LICENSES_DIR = os.path.join(__THIS_DIR, "ready_licenses/")
 
-CITY_SLUG_TO_LICENSE_TYPE = {
+CITY_ID_TO_LICENSE_TYPE = {
     "detroit": "CC0",
     "lisbon": "CC0",
     "luxembourg": "CC0",
@@ -40,6 +40,7 @@ CITY_SLUG_TO_LICENSE_TYPE = {
     "sydney": "CC_4.0",
     "toulouse": "ODBL_v1.0",
     "valencia": "CC_4.0",
+    "valparaiso": "CC_NC_2.0",
     "venice": "CC_3.0_IT",
     "winnipeg": "PDDL",
     "helsinki": "CC_4.0"
@@ -86,7 +87,7 @@ LICENSE_TYPE_TO_LEGAL_CODE_BASE_NAME = {
 
 
 def create_license_files(city_slug, city_license_output_dir=None):
-    assert city_slug in CITY_SLUG_TO_LICENSE_TYPE
+    assert city_slug in CITY_ID_TO_LICENSE_TYPE
     if city_license_output_dir is None:
         city_license_output_dir = os.path.join(READY_LICENSES_DIR, city_slug)
     try:
@@ -98,7 +99,7 @@ def create_license_files(city_slug, city_license_output_dir=None):
     extract_name = "\"" + city_name + " public transport extract\""
     city_license_fname = os.path.join(city_license_output_dir, "license.txt")
     feed_author_str = FEED_SLUG_TO_AUTHOR_STR[city_slug]
-    license_type = CITY_SLUG_TO_LICENSE_TYPE[city_slug]
+    license_type = CITY_ID_TO_LICENSE_TYPE[city_slug]
     LEGAL_CODE_BASE_NAME = LICENSE_TYPE_TO_LEGAL_CODE_BASE_NAME[license_type]
 
     if license_type == "CC0":
@@ -137,7 +138,7 @@ if __name__ == "__main__":
     clean()
     subprocess.call("mkdir -p " + READY_LICENSES_DIR, shell=True)
 
-    for city_slug in CITY_SLUG_TO_LICENSE_TYPE:
+    for city_slug in CITY_ID_TO_LICENSE_TYPE:
         print(city_slug)
         create_license_files(city_slug)
 

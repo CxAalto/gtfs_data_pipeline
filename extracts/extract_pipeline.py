@@ -133,10 +133,9 @@ class ExtractPipeline(object):
 
     TEMP_FILE_PREFIX = "temporary_file_"
 
-    @flushed
     def __init__(self, city_publish_tuple, feeds=None,
                  download_date=None):
-        print(city_publish_tuple, feeds, download_date)
+        # print(city_publish_tuple, feeds, download_date)
 
         # Feed parameters
         self.feeds = feeds
