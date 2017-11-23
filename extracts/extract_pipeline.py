@@ -34,6 +34,9 @@ See ExtractPipeline.run_full_without_deploy for details on what is done.
 
 import matplotlib
 matplotlib.use("agg")
+# matplotlib.use("TkAgg") use this if interactive stuff wanted
+
+from matplotlib import pyplot as plt
 
 AVAILABLE_COMMANDS = ['full',
                       "thumbnail",
@@ -99,7 +102,7 @@ def main():
                         pipeline._create_raw_db()
                         pipeline._main_db_extract()
                     elif cmd == "extract_start_date":
-                        pipeline.print_weekly_extract_start_and_download_dates()
+                        pipeline.plot_weekly_extract_start_and_download_dates()
                 except Exception as e:
                     print("(Probably) the ExtractPipeline object could not be created for city",
                           to_publish_tuple.id, to_publish_tuple.download_date, " :")
@@ -154,9 +157,6 @@ class ExtractPipeline(object):
         else:
             self.download_date = download_date
 
-        # Input dirs
-        self.subfeed_paths = []
-
         # Create output directory:
         assert isinstance(self.city_id, str)
         assert isinstance(self.download_date, str)
@@ -192,9 +192,7 @@ class ExtractPipeline(object):
 
         self.log_fname = os.path.join(TO_PUBLISH_ROOT_OUTPUT_DIR, self.city_id + "_" + self.download_date + ".txt")
 
-        self._discover_subfeed_paths()
         self.coordinate_corrections = pandas.read_csv("coordinate_corrections.csv", sep=",")
-
 
         # GTFS Warning containers:
         self.tv_warnings = None  # timetable validation warnings
@@ -208,6 +206,9 @@ class ExtractPipeline(object):
 
         self.week_db_timetable_warnings_summary_fname = os.path.join(self.output_directory, "week_db_timetable_warnings_summary.log")
         self.week_db_timetable_warnings_details_fname = os.path.join(self.output_directory, "week_db_timetable_warnings_details.log")
+
+        self.weekly_extract_dates_plot_fname = os.path.join(self.output_directory,
+                                                            ExtractPipeline.TEMP_FILE_PREFIX + "extract_start_date_plot.pdf")
 
     @flushed
     def clear(self):
@@ -378,8 +379,9 @@ class ExtractPipeline(object):
     @flushed
     def import_original_feeds_into_raw_db(self):
         if not os.path.isfile(self.raw_db_path):
-            print("Importing feeds " + " ".join(self.subfeed_paths))
-            command = ' '.join(['python', '../../gtfspy/gtfspy/import_gtfs.py', 'import-multiple', ' '.join(self.subfeed_paths),
+            subfeed_paths = self._get_subfeed_paths()
+            print("Importing feeds " + " ".join(subfeed_paths))
+            command = ' '.join(['python', '../../gtfspy/gtfspy/import_gtfs.py', 'import-multiple', ' '.join(subfeed_paths),
                                 self.raw_db_path])
             subprocess.run(command, shell=True, check=True)
         else:
@@ -439,7 +441,8 @@ class ExtractPipeline(object):
     @flushed
     def _validate_raw_db_and_write_warnings(self):
         # import validator is run on the imported feed
-        warnings_container = import_validator.ImportValidator(self.subfeed_paths, self.raw_db_path).validate_and_get_warnings()
+        subfeed_paths = self._get_subfeed_paths()
+        warnings_container = import_validator.ImportValidator(subfeed_paths, self.raw_db_path).validate_and_get_warnings()
 
         with open(self.raw_import_warnings_summary_fname, "w") as f:
             warnings_container.write_summary(f)
@@ -528,16 +531,16 @@ class ExtractPipeline(object):
                 cityzip.write(path_to_file, self.city_id + "/" + os.path.basename(path_to_file))
 
     @flushed
-    def _discover_subfeed_paths(self):
+    def _get_subfeed_paths(self):
         """
-        Walks trough the folders of the input feeds and returns the path of the GTFS zip
-        Stores the paths of the subfeeds to self.subfeed_paths
+        Walks trough the folders of the input feeds and returns the paths to the relevant GTFS zips (?)
         """
-        self.subfeed_paths = FeedManager().get_subfeed_paths(self.feeds, self.download_date)
-        if not len(self.subfeed_paths) > 0:
+        subfeed_paths = FeedManager().get_subfeed_paths(self.feeds, self.download_date)
+        if not len(subfeed_paths) > 0:
             raise Exception('No subfeeds found')
         else:
-            print(str(len(self.subfeed_paths)) + ' subfeed(s) found for ' + self.city_id + " " + self.download_date)
+            print(str(len(subfeed_paths)) + ' subfeed(s) found for ' + self.city_id + " " + self.download_date)
+            return subfeed_paths
 
     @flushed
     def find_overlapping_calendar_span(self):
@@ -549,7 +552,7 @@ class ExtractPipeline(object):
         start_dates = []
         end_dates = []
         subfeed_start_end_dict_for_logging = {}
-        for subfeed in self.subfeed_paths:
+        for subfeed in self._get_subfeed_paths:
             start = float('inf')
             end = -float('inf')
             for table, [start_date_col, end_date_col] in zip(['calendar', 'calendar_dates'],
@@ -582,13 +585,19 @@ class ExtractPipeline(object):
         print('overlap start date: ' + overlapping_start_date + ' , overlap end date: ' + overlapping_end_date)
         return overlapping_start_date, overlapping_end_date
 
-    def print_weekly_extract_start_and_download_dates(self):
+    def plot_weekly_extract_start_and_download_dates(self):
         main_G = GTFS(self.main_db_path)
-
         assert isinstance(main_G, GTFS)
         day_extract_date_start = main_G.get_weekly_extract_start_date()
         print("Weekly extract start date: " + str(day_extract_date_start))
         print("Download date: " + str(self.download_date))
+        from gtfspy.plots import plot_trip_counts_per_day
+        ax = plot_trip_counts_per_day(main_G,
+                                        highlight_dates=[day_extract_date_start, self.download_date],
+                                        highlight_date_labels=["Extract date start", "Download date"])
+        ax.set_title(self.city_id)
+        plt.show()
+        ax.figure.savefig(self.weekly_extract_dates_plot_fname)
 
     @flushed
     def __create_temporal_extract_from_main_db(self, days, output_db_path):
