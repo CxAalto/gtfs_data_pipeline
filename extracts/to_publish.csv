@@ -1,165 +1,165 @@
-id,name,buffer,feeds,download_date,lon,lat,license_files,publishable
-aalborg,Aalborg,10,denmark,2016-12-07,9.9174160055,57.0411122598,"",0
-aarhus,Aarhus,20,denmark,2016-12-07,10.2015055035,56.1556281874,"",0
-adelaide,Adelaide,40,,2016-12-07,138.577492474,-34.9212657726,"",0
-amsterdam,Amsterdam,20,netherlands,2016-12-07,4.8977910914,52.3736801273,"",0
-antofagasta,Antofagasta,20,,2016-12-07,-70.3865345487,-23.6176028052,"",0
-antwerpen,Antwerpen,20,belgium,2016-12-07,4.4126098192,51.2217444524,"",0
-athens,Athens,30,,2016-12-07,23.7213356284,37.9945974766,"",0
-atlanta,Atlanta,50,,2016-12-07,-84.3576095301,33.7900786619,"",0
-auckland,Auckland,30,,2016-12-07,174.7909321932,-36.8720519609,"",0
-austin,Austin,30,,2016-12-07,-97.7284894399,30.3032748752,"",0
-baltimore,Baltimore,30,maryland;washington_dc,2016-12-07,-76.6288645356,39.2989921578,"",0
-barcelona,Barcelona,30,,2017-03-06,2.1787704206,41.3798405711,"",0
-basel,Basel,20,switzerland,2016-12-07,7.5908098855,47.558218122,"",0
-bay_area,Bay Area,70,sf_bay_area,2016-12-07,-122.2122581013,37.6023130374,"",0
-belfast,Belfast,30,,2017-10-30,-5.930410,54.600091,"",0
-belo_horizonte,Belo Horizonte,20,,2016-12-07,-43.9564161138,-19.8910318457,"",0
-bergen,Bergen,10,norway,2017-01-26,5.3332926209,60.3902975432,"",0
-berlin,Berlin,30,,2016-12-07,13.4029136992,52.5190044482,"",0
-bern,Bern,10,switzerland,2016-12-07,7.4476201057,46.9490772291,"",0
-bilbao,Bilbao,30,,2016-11-24,-2.9352670377,43.2628301505,"",0
-bordeaux,Bordeaux,30,bordeaux,2016-12-07,-0.5750541222,44.8412042216,"",0
-boston,Boston,30,,2016-12-07,-71.0790563736,42.3673722729,"",0
-brest,Brest,20,brest,2016-12-07,-4.4669080843,48.3982984888,"",0
-brisbane,Brisbane,40,south_east_queensland,2016-12-07,153.0225825521,-27.4579920361,"",0
-brussel,Brussel,30,belgium,2016-12-07,4.3775786804,50.8494588783,"",0
-budapest,Budapest,30,,2016-12-07,19.0584721114,47.4956814335,"",0
-buffalo,Buffalo,30,,2016-12-07,-78.8410809499,42.913680961,"",0
-calgary,Calgary,30,,2016-11-24,-114.0578847706,51.0397615702,"",0
-canberra,Canberra,30,,2016-12-07,149.1253683622,-35.2766620388,"",0
-charleroi,Charleroi,20,belgium,2016-12-07,4.4458894011,50.4108746197,"",0
-chicago,Chicago,60,,2016-12-07,-87.6908223855,41.8645529485,"",0
-cincinnati,Cincinnati,30,,2016-12-07,-84.489852079,39.1416689699,"",0
-cleveland,Cleveland,30,,2016-12-12,-81.691387,41.501108,"",0
-cologne,Cologne,25,,,7.0138673934,50.843986936,"",0
-columbus,Columbus,30,,2016-12-07,-82.9693911834,40.0061394358,"",0
-copenhagen,Copenhagen,20,denmark,2016-12-07,12.5599769222,55.6904477259,"",0
-dallas,Dallas,60,,2016-12-07,-97.0239935363,32.8336202404,"",0
-denver,Denver,40,,2016-12-07,-104.9567949142,39.73610386,"",0
-des_moines,Des Moines,30,,2016-12-07,-93.6733842145,41.5949795482,"",0
-detroit,Detroit,30,,2016-12-07,-83.0807245214,42.3699604575,"license_detroit.txt;cc0_1.0_legalcode.txt",1
-dublin,Dublin,20,,2016-12-07,-6.256561387,53.3496878045,"",0
-edmonton,Edmonton,30,,2016-12-07,-113.5113990056,53.5332437153,"",0
-eindhoven,Eindhoven,20,netherlands,2016-12-07,5.4793079952,51.4406246929,"",0
-el_paso,El Paso,30,,2016-07-06,-106.4519677065,31.7792183302,"",0
-fredrikstad-sarpsborg,Fredrikstad-Sarpsborg,10,norway,2017-01-26,10.9906342055,59.2452858876,"",0
-geneva,Geneva,20,switzerland,2016-12-07,6.1459943552,46.2080634391,"",0
-gent,Gent,20,belgium,2016-12-07,3.7321299483,51.0428590011,"",0
-gothenburg,Gothenburg,20,sweden,2016-12-07,11.9863420246,57.7199611659,"",0
-grenoble,Grenoble,20,grenoble,2016-12-07,5.7227744098,45.1771754006,"",0
-groningen,Groningen,20,netherlands,2016-12-07,6.5626459622,53.2161708563,"",0
-haifa,Haifa,20,israel,2016-12-07,35.0646373116,32.8310446523,"",0
-hartford,Hartford,20,connecticut,2016-12-07,-72.681730973,41.7640331486,"",0
-helsingborg,Helsingborg,10,sweden,2016-12-07,12.6957588825,56.0430585776,"",0
-helsinki,Helsinki,30,helsinki,2016-12-07,24.9408571473,60.1732561813,"",0
-honolulu,Honolulu,30,honolulu,2016-12-07,-157.8611297239,21.3237497466,"",0
-houston,Houston,50,houston,2016-12-07,-95.3670206718,29.755512029,"",0
-indianapolis,Indianapolis,30,,2016-12-07,-86.1529553928,39.7886986913,"",0
-jerusalem,Jerusalem,20,israel,2016-12-07,35.2185553777,31.770470217,"",0
-jonkoping,Jönköping,10,sweden,2016-12-07,14.1647816654,57.782073196,"",0
-jyvaskyla,Jyväskylä,30,finland-matka,2016-12-07,25.7506492603,62.24650616,"",0
-kansas_city,Kansas City,30,,2016-12-07,-94.5683107075,39.0743918147,"",0
-kaunas,Kaunas,20,,2016-12-12,23.9181668394,54.8991575048,"",0
-kuala_lumpur,Kuala Lumpur,40,,2016-12-07,101.6787561024,3.1038817012,"",0
-kuopio,Kuopio,10,finland-matka,2016-12-07,27.6807300896,62.8944693649,"",0
-lahti,Lahti,20,finland-matka,2016-12-07,25.6588538829,60.976382207,"",0
-las_vegas,Las Vegas,30,,2016-12-07,-115.155235193,36.1593174894,"",0
-lausanne,Lausanne,20,switzerland,2016-12-07,6.6259209566,46.5196067712,"",0
-liege,Liege,20,belgium,2016-12-07,5.5787088515,50.6422038465,"",0
-linkoping,Linköping,10,sweden,2016-12-07,15.6255804137,58.4114327861,"",0
-lisbon,Lisbon,30,lisbon;portugal,2017-01-30,-9.1419982897,38.7095615614,"license_lisbon.txt;cc0_1.0_legalcode.txt",1
-los_angeles,Los Angeles,100,,2016-12-07,-117.9647325236,33.9602243095,"",0
-lucerne,Lucerne,20,switzerland,2016-12-07,8.3030367259,47.0512116994,"",0
-luxembourg,Luxembourg,20,,2016-12-07,6.1328576782,49.6111456782,"license_luxembourg.txt;cc0_1.0_legalcode.txt",1
-lviv,Lviv,nan,,,24.0328534626,49.8418133486,"",0
-lyon,Lyon,nan,,,4.8306977863,45.756682247,"",0
-madrid,Madrid,30,,2016-12-07,-3.6977556434,40.4143652675,"",0
-malmo,Malmö,20,sweden,2016-12-07,13.0083754986,55.6024802125,"",0
-manchester,Manchester,30,manchester;gb_rail,2016-12-07,-2.206085965,53.4791397133,"",0
-manilla,Manilla,40,,2016-06-08,121.0378391735,14.5979612688,"",0
-mannheim,Mannheim,20,,2016-12-07,8.5624860976,49.4899803748,"",0
-marseille,Marseille,30,marseille,2016-12-07,5.3849663727,43.3051030445,"",0
-melbourne,Melbourne,50,victoria_manually_expanded_gtfs,2016-12-07,145.0792718326,-37.849344983,"",0
-mexico_city,Mexico City,30,,2016-12-07,-99.1284891988,19.3689884051,"",0
-miami,Miami,100,,2016-12-07,-80.1731400022,26.1631583354,"",0
-milan,Milan,20,,2016-12-07,9.1869161464,45.4784133408,"",0
-milwaukee,Milwaukee,30,,2016-12-07,-87.9377919139,43.0469483503,"",0
-minneapolis,Minneapolis,40,,2016-12-07,-93.2782890217,44.9963913327,"",0
-montreal,Montreal,50,,2016-12-07,-73.6214412709,45.5167033465,"",0
-nairobi,Nairobi,30,,2016-12-07,36.8334908757,-1.2838932493,"",0
-nantes,Nantes,20,nantes_manually_expanded_gtfs,2016-12-07,-1.5516419489,47.2133200528,"",0
-naples,Naples,20,,2016-06-08,14.2699343841,40.8492015782,"",0
-nashville,Nashville,30,,2016-12-07,-86.7554909799,36.1734579249,"",0
-new_haven,New Haven,30,connecticut,2016-12-07,-72.9228773302,41.3088600066,"",0
-new_orleans,New Orleans,30,,2016-12-07,-90.1011836785,29.9882750886,"",0
-new_york,New York,60,new_york;new_jersey;connecticut,2016-12-07,-73.964746431,40.78333609,"",0
-nice,Nice,20,nice,2016-12-07,7.2709317995,43.7004822451,"",0
-norrkoping,Norrköping,10,sweden,2016-12-07,16.1886029625,58.5911227672,"",0
-odense,Odense,20,denmark,2016-12-07,10.388922096,55.3966191873,"",0
-orebro,Örebro,10,sweden,2016-12-07,15.2070833605,59.2739934912,"",0
-orlando,Orlando,30,,2016-12-07,-81.3869689611,28.5354501657,"",0
-oslo,Oslo,20,norway,2016-12-07,10.7501807147,59.923040279,"",0
-ottawa,Ottawa,30,,2016-12-07,-75.6909057946,45.3962976144,"",0
-oulu,Oulu,30,finland-matka,2016-12-07,25.4846906062,65.0121861812,"",0
-palermo,Palermo,20,,2016-12-07,13.3597816096,38.1185512471,"",0
-mallorca,Palma de Mallorca,30,,2016-12-07,2.649272261,39.5715793597,"",0
-paris,Paris,40,paris,2016-12-07,2.3519030802,48.8619266629,"",0
-perth,Perth,80,,2016-12-07,115.828270947,-32.046844004,"",0
-philadelphia,Philadelphia,60,philadelphia;new_jersey,2016-12-07,-75.1347864664,39.9613471896,"",0
-phoenix,Phoenix,60,,2016-12-07,-112.0849748231,33.4623806291,"",0
-pittsburg,Pittsburg,30,,2016-12-07,-79.9339430077,40.4514456008,"",0
-pori,Pori,20,finland-matka,2016-12-07,21.7914312947,61.4850755907,"",0
-porsgrunn-skien,Porsgrunn-Skien,10,norway,2017-01-26,9.6321654226,59.1806366083,"",0
-portland,Portland,50,,2016-12-07,-122.6581009508,45.5271824397,"",0
-porto_alegre,Porto Alegre,30,,2016-12-07,-51.1815884882,-30.0362408947,"",0
-prague,Prague,30,,2016-12-07,14.4310746059,50.0845538796,"license_prague.txt;cc0_1.0_legalcode.txt",1
-providence,Providence,20,,2016-12-07,-71.4153553059,41.8227976439,"",0
-quebec_city,Quebec City,30,,2016-12-07,-71.2230084582,46.807832013,"",0
-raleigh,Raleigh,50,raleigh-durham,2016-12-07,-78.6495044096,35.7826908639,"",0
-rennes,Rennes,20,rennes,2016-12-07,-1.6749263232,48.1079011008,"",0
-rio_de_janeiro,Rio de Janeiro,50,,2016-12-07,-43.2794393567,-22.8849760147,"",0
-rome,Rome,20,,2017-10-25,12.4853168076,41.8962589762,"",0
-rotterdam,Rotterdam,20,netherlands,2016-12-07,4.4669080843,51.921189817,"",0
-sacramento,Sacramento,30,,2016-12-07,-121.4834502287,38.5830844066,"",0
-salt_lake_city,Salt Lake City,70,utah,2016-12-07,-111.91222752,40.6764869495,"",0
-san_antonio,San Antonio,30,,2016-12-07,-98.5049349285,29.4622715269,"",0
-san_diego,San Diego,30,,2016-12-07,-117.1583594977,32.7191185133,"",0
-santiago,Santiago,30,,2016-12-07,-70.6536469819,-33.4727912886,"",0
-seattle,Seattle,60,,2016-12-07,-122.2464134616,47.6241481909,"",0
-singapore,Singapore,30,,2016-12-07,103.8436804793,1.3335807109,"",0
-st_louis,St. Louis,30,,2016-12-07,-90.2402135106,38.6379211339,"",0
-st_petersburg,St Petersburg,40,,2016-12-07,30.3282084033,59.9330239243,"",0
-stavanger,Stavanger,10,norway,2017-01-26,5.7345974191,58.9636295571,"",0
-stockholm,Stockholm,30,sweden,2016-12-07,18.064682493,59.3260975377,"",0
-strassbourg,Strassbourg,20,strassbourg,2016-12-07,7.7318102191,48.5793942676,"",0
-sydney,Sydney,50,new_south_wales,2016-12-14,151.064341894,-33.8269177663,"",0
-szczecin,Szczecin,20,,2016-12-07,14.5598170576,53.4263364775,"",0
-tallinn,Tallinn,20,estonia,2016-12-07,24.7530026656,59.4341576308,"",0
-tampa,Tampa,30,,2016-12-07,-82.4519155802,27.9985992762,"",0
-tampere,Tampere,30,finland-matka,2016-12-07,23.7490811138,61.4998559294,"",0
-tel_aviv,Tel Aviv,20,israel,2016-12-07,34.7911754845,32.0663278973,"",0
-the_hague,The Hague,20,netherlands,2016-12-07,4.309705849,52.0737869926,"",0
-tilburg,Tilburg,20,netherlands,2016-12-07,5.0808287916,51.5594747862,"",0
-toronto,Toronto,70,,2016-12-07,-79.3950108319,43.6705582564,"",0
-toulouse,Toulouse,20,toulouse,2016-12-07,1.4428450287,43.6021045168,"",0
-trondheim,Trondheim,10,norway,2017-01-26,10.3951676564,63.430431276,"",0
-tucson,Tucson,30,,2016-12-07,-110.9429596987,32.237421866,"",0
-turin,Turin,20,,2016-12-07,7.6823287356,45.0679540669,"",0
-turku,Turku,10,finland-matka,2016-12-07,22.2671054796,60.4491278151,"",0
-umea,Umeå,10,sweden,2016-12-07,20.2641803907,63.8270540054,"",0
-uppsala,Uppsala,10,sweden,2016-12-07,17.6465666795,59.8583801984,"",0
-utrecht,Utrecht,20,netherlands,2016-12-07,5.1009716964,52.0945064965,"",0
-valencia,Valencia,30,,2016-12-07,-0.3759178094,39.4715332329,"",0
-valparaiso,Valparaiso,20,,2016-12-07,-71.5500062456,-33.0223540681,"",0
-vancouver,Vancouver,30,,2016-12-07,-122.9049988708,49.2187973649,"",0
-vasteras,Västerås,10,sweden,2016-12-07,16.5523179241,59.6073797014,"",0
-venice,Venice,20,,2016-12-07,12.2416314485,45.4882377088,"",0
-vilnius,Vilnius,20,,2016-12-07,25.2721203535,54.6830446169,"",0
-virginia_beach-norfolk,Virginia Beach-Norfolk,30,,2016-12-07,-76.2899382679,36.9276420795,"",0
-warsaw,Warsaw,30,,2016-12-07,21.0139052785,52.2404391435,"",0
-washington_dc,Washington DC,50,maryland;washington_dc,2016-12-07,-77.0317226316,38.9102626173,"",0
-wellington,Wellington,30,,2016-12-07,174.8522366861,-41.2232617907,"",0
-winnipeg,Winnipeg,30,,2016-12-07,-97.135217402,49.881858226,"",0
-wroclaw,Wroclaw,20,,2016-12-07,17.0310449543,51.1066887478,"",0
-zurich,Zurich,20,switzerland,2016-12-01,8.5405916358,47.3763152735,"",0
+id,name,buffer,feeds,download_date,lon,lat,license_files,country,publishable
+aalborg,Aalborg,10,denmark,2016-12-07,9.9174160055,57.0411122598,"",Denmark,0
+aarhus,Aarhus,20,denmark,2016-12-07,10.2015055035,56.1556281874,"",Denmark,0
+adelaide,Adelaide,40,,2016-12-07,138.577492474,-34.9212657726,"",Australia,0
+amsterdam,Amsterdam,20,netherlands,2016-12-07,4.8977910914,52.3736801273,"",Netherlands,0
+antofagasta,Antofagasta,20,,2016-12-07,-70.3865345487,-23.6176028052,"",Chile,0
+antwerpen,Antwerpen,20,belgium,2016-12-07,4.4126098192,51.2217444524,"",Belgium,0
+athens,Athens,30,,2016-12-07,23.7213356284,37.9945974766,"",Greece,0
+atlanta,Atlanta,50,,2016-12-07,-84.3576095301,33.7900786619,"",USA,0
+auckland,Auckland,30,,2016-12-07,174.7909321932,-36.8720519609,"",New Zealand,0
+austin,Austin,30,,2016-12-07,-97.7284894399,30.3032748752,"",USA.,0
+baltimore,Baltimore,30,maryland;washington_dc,2016-12-07,-76.6288645356,39.2989921578,"",USA,0
+barcelona,Barcelona,30,,2017-03-06,2.1787704206,41.3798405711,"",Spain,0
+basel,Basel,20,switzerland,2016-12-07,7.5908098855,47.558218122,"",Switzerland,0
+bay_area,Bay Area,70,sf_bay_area,2016-12-07,-122.2122581013,37.6023130374,"",USA,0
+belfast,Belfast,30,,2017-10-30,-5.930410,54.600091,"",Northern Ireland,0
+belo_horizonte,Belo Horizonte,20,,2016-12-07,-43.9564161138,-19.8910318457,"",Brazil,0
+bergen,Bergen,10,norway,2017-01-26,5.3332926209,60.3902975432,"",Norway,0
+berlin,Berlin,30,,2016-12-07,13.4029136992,52.5190044482,"",Germany,0
+bern,Bern,10,switzerland,2016-12-07,7.4476201057,46.9490772291,"",Switzerland,0
+bilbao,Bilbao,30,,2016-11-24,-2.9352670377,43.2628301505,"",Spain,0
+bordeaux,Bordeaux,30,bordeaux,2016-12-07,-0.5750541222,44.8412042216,"",France,0
+boston,Boston,30,,2016-12-07,-71.0790563736,42.3673722729,"",USA,0
+brest,Brest,20,brest,2016-12-07,-4.4669080843,48.3982984888,"",France,0
+brisbane,Brisbane,40,south_east_queensland,2016-12-07,153.0225825521,-27.4579920361,"",Australia,0
+brussel,Brussel,30,belgium,2016-12-07,4.3775786804,50.8494588783,"",Belgium,0
+budapest,Budapest,30,,2016-12-07,19.0584721114,47.4956814335,"",Hungary,0
+buffalo,Buffalo,30,,2016-12-07,-78.8410809499,42.913680961,"",USA,0
+calgary,Calgary,30,,2016-11-24,-114.0578847706,51.0397615702,"",Canada,0
+canberra,Canberra,30,,2016-12-07,149.1253683622,-35.2766620388,"",Australia,0
+charleroi,Charleroi,20,belgium,2016-12-07,4.4458894011,50.4108746197,"",Belgium,0
+chicago,Chicago,60,,2016-12-07,-87.6908223855,41.8645529485,"",USA,0
+cincinnati,Cincinnati,30,,2016-12-07,-84.489852079,39.1416689699,"",USA,0
+cleveland,Cleveland,30,,2016-12-12,-81.691387,41.501108,"",USA,0
+cologne,Cologne,25,,,7.0138673934,50.843986936,"",Germany,0
+columbus,Columbus,30,,2016-12-07,-82.9693911834,40.0061394358,"",USA,0
+copenhagen,Copenhagen,20,denmark,2016-12-07,12.5599769222,55.6904477259,"",Denmark,0
+dallas,Dallas,60,,2016-12-07,-97.0239935363,32.8336202404,"",USA,0
+denver,Denver,40,,2016-12-07,-104.9567949142,39.73610386,"",USA,0
+des_moines,Des Moines,30,,2016-12-07,-93.6733842145,41.5949795482,"",USA,0
+detroit,Detroit,30,,2016-12-07,-83.0807245214,42.3699604575,"license_detroit.txt;cc0_1.0_legalcode.txt",USA,1
+dublin,Dublin,20,,2016-12-07,-6.256561387,53.3496878045,"",Ireland,0
+edmonton,Edmonton,30,,2016-12-07,-113.5113990056,53.5332437153,"",Canada,0
+eindhoven,Eindhoven,20,netherlands,2016-12-07,5.4793079952,51.4406246929,"",Netherlands,0
+el_paso,El Paso,30,,2016-07-06,-106.4519677065,31.7792183302,"",USA,0
+fredrikstad-sarpsborg,Fredrikstad-Sarpsborg,10,norway,2017-01-26,10.9906342055,59.2452858876,"",Norway,0
+geneva,Geneva,20,switzerland,2016-12-07,6.1459943552,46.2080634391,"",Switzerland,0
+gent,Gent,20,belgium,2016-12-07,3.7321299483,51.0428590011,"",Belgium,0
+gothenburg,Gothenburg,20,sweden,2016-12-07,11.9863420246,57.7199611659,"",Sweden,0
+grenoble,Grenoble,20,grenoble,2016-12-07,5.7227744098,45.1771754006,"",France,0
+groningen,Groningen,20,netherlands,2016-12-07,6.5626459622,53.2161708563,"",Netherlands,0
+haifa,Haifa,20,israel,2016-12-07,35.0646373116,32.8310446523,"",Israel,0
+hartford,Hartford,20,connecticut,2016-12-07,-72.681730973,41.7640331486,"",USA,0
+helsingborg,Helsingborg,10,sweden,2016-12-07,12.6957588825,56.0430585776,"",Sweden,0
+helsinki,Helsinki,30,helsinki,2016-12-07,24.9408571473,60.1732561813,"",Finland,0
+honolulu,Honolulu,30,honolulu,2016-12-07,-157.8611297239,21.3237497466,"",USA,0
+houston,Houston,50,houston,2016-12-07,-95.3670206718,29.755512029,"",USA,0
+indianapolis,Indianapolis,30,,2016-12-07,-86.1529553928,39.7886986913,"",USA,0
+jerusalem,Jerusalem,20,israel,2016-12-07,35.2185553777,31.770470217,"",Israel,0
+jonkoping,Jönköping,10,sweden,2016-12-07,14.1647816654,57.782073196,"",Sweden,0
+jyvaskyla,Jyväskylä,30,finland-matka,2016-12-07,25.7506492603,62.24650616,"",Finland,0
+kansas_city,Kansas City,30,,2016-12-07,-94.5683107075,39.0743918147,"",USA,0
+kaunas,Kaunas,20,,2016-12-12,23.9181668394,54.8991575048,"",Lithuania,0
+kuala_lumpur,Kuala Lumpur,40,,2016-12-07,101.6787561024,3.1038817012,"",Malaysia,0
+kuopio,Kuopio,10,finland-matka,2016-12-07,27.6807300896,62.8944693649,"",Finland,0
+lahti,Lahti,20,finland-matka,2016-12-07,25.6588538829,60.976382207,"",Finland,0
+las_vegas,Las Vegas,30,,2016-12-07,-115.155235193,36.1593174894,"",USA,0
+lausanne,Lausanne,20,switzerland,2016-12-07,6.6259209566,46.5196067712,"",Switzerland,0
+liege,Liege,20,belgium,2016-12-07,5.5787088515,50.6422038465,"",Belgium,0
+linkoping,Linköping,10,sweden,2016-12-07,15.6255804137,58.4114327861,"",Sweden,0
+lisbon,Lisbon,30,lisbon;portugal,2017-01-30,-9.1419982897,38.7095615614,"license_lisbon.txt;cc0_1.0_legalcode.txt",Portugal,1
+los_angeles,Los Angeles,100,,2016-12-07,-117.9647325236,33.9602243095,"",USA,0
+lucerne,Lucerne,20,switzerland,2016-12-07,8.3030367259,47.0512116994,"",Switzerland,0
+luxembourg,Luxembourg,20,,2016-12-07,6.1328576782,49.6111456782,"license_luxembourg.txt;cc0_1.0_legalcode.txt",Luxembourg,1
+lviv,Lviv,nan,,,24.0328534626,49.8418133486,"",Ukraine,0
+lyon,Lyon,nan,,,4.8306977863,45.756682247,"",France,0
+madrid,Madrid,30,,2016-12-07,-3.6977556434,40.4143652675,"",Spain,0
+malmo,Malmö,20,sweden,2016-12-07,13.0083754986,55.6024802125,"",Sweden,0
+manchester,Manchester,30,manchester;gb_rail,2016-12-07,-2.206085965,53.4791397133,"",England,0
+manilla,Manila,40,,2016-06-08,121.0378391735,14.5979612688,"",Philippines,0
+mannheim,Mannheim,20,,2016-12-07,8.5624860976,49.4899803748,"",Germany,0
+marseille,Marseille,30,marseille,2016-12-07,5.3849663727,43.3051030445,"",France,0
+melbourne,Melbourne,50,victoria_manually_expanded_gtfs,2016-12-07,145.0792718326,-37.849344983,"",Australia,0
+mexico_city,Mexico City,30,,2016-12-07,-99.1284891988,19.3689884051,"",Mexico,0
+miami,Miami,100,,2016-12-07,-80.1731400022,26.1631583354,"",USA,0
+milan,Milan,20,,2016-12-07,9.1869161464,45.4784133408,"",Italy,0
+milwaukee,Milwaukee,30,,2016-12-07,-87.9377919139,43.0469483503,"",USA,0
+minneapolis,Minneapolis,40,,2016-12-07,-93.2782890217,44.9963913327,"",USA,0
+montreal,Montreal,50,,2016-12-07,-73.6214412709,45.5167033465,"",Canada,0
+nairobi,Nairobi,30,,2016-12-07,36.8334908757,-1.2838932493,"",Kenya,0
+nantes,Nantes,20,nantes_manually_expanded_gtfs,2016-12-07,-1.5516419489,47.2133200528,"",France,0
+naples,Naples,20,,2016-06-08,14.2699343841,40.8492015782,"",Italy,0
+nashville,Nashville,30,,2016-12-07,-86.7554909799,36.1734579249,"",USA,0
+new_haven,New Haven,30,connecticut,2016-12-07,-72.9228773302,41.3088600066,"",USA,0
+new_orleans,New Orleans,30,,2016-12-07,-90.1011836785,29.9882750886,"",USA,0
+new_york,New York,60,new_york;new_jersey;connecticut,2016-12-07,-73.964746431,40.78333609,"",USA,0
+nice,Nice,20,nice,2016-12-07,7.2709317995,43.7004822451,"",France,0
+norrkoping,Norrköping,10,sweden,2016-12-07,16.1886029625,58.5911227672,"",Sweden,0
+odense,Odense,20,denmark,2016-12-07,10.388922096,55.3966191873,"",Denmark,0
+orebro,Örebro,10,sweden,2016-12-07,15.2070833605,59.2739934912,"",Sweden,0
+orlando,Orlando,30,,2016-12-07,-81.3869689611,28.5354501657,"",USA,0
+oslo,Oslo,20,norway,2016-12-07,10.7501807147,59.923040279,"",Norway,0
+ottawa,Ottawa,30,,2016-12-07,-75.6909057946,45.3962976144,"",Canada,0
+oulu,Oulu,30,finland-matka,2016-12-07,25.4846906062,65.0121861812,"",Finland,0
+palermo,Palermo,20,,2016-12-07,13.3597816096,38.1185512471,"",Italy,0
+mallorca,Palma de Mallorca,30,,2016-12-07,2.649272261,39.5715793597,"",Spain,0
+paris,Paris,40,paris,2016-12-07,2.3519030802,48.8619266629,"",France,0
+perth,Perth,80,,2016-12-07,115.828270947,-32.046844004,"",Australia,0
+philadelphia,Philadelphia,60,philadelphia;new_jersey,2016-12-07,-75.1347864664,39.9613471896,"",USA,0
+phoenix,Phoenix,60,,2016-12-07,-112.0849748231,33.4623806291,"",USA,0
+pittsburg,Pittsburg,30,,2016-12-07,-79.9339430077,40.4514456008,"",USA,0
+pori,Pori,20,finland-matka,2016-12-07,21.7914312947,61.4850755907,"",Finland,0
+porsgrunn-skien,Porsgrunn-Skien,10,norway,2017-01-26,9.6321654226,59.1806366083,"",Norway,0
+portland,Portland,50,,2016-12-07,-122.6581009508,45.5271824397,"",USA,0
+porto_alegre,Porto Alegre,30,,2016-12-07,-51.1815884882,-30.0362408947,"",Brazil,0
+prague,Prague,30,,2016-12-07,14.4310746059,50.0845538796,"license_prague.txt;cc0_1.0_legalcode.txt",Czechia,1
+providence,Providence,20,,2016-12-07,-71.4153553059,41.8227976439,"",USA,0
+quebec_city,Quebec City,30,,2016-12-07,-71.2230084582,46.807832013,"",Canada,0
+raleigh,Raleigh,50,raleigh-durham,2016-12-07,-78.6495044096,35.7826908639,"",USA,0
+rennes,Rennes,20,rennes,2016-12-07,-1.6749263232,48.1079011008,"",France,0
+rio_de_janeiro,Rio de Janeiro,50,,2016-12-07,-43.2794393567,-22.8849760147,"",Brazil,0
+rome,Rome,20,,2017-10-25,12.4853168076,41.8962589762,"",Italy,0
+rotterdam,Rotterdam,20,netherlands,2016-12-07,4.4669080843,51.921189817,"",Netherlands,0
+sacramento,Sacramento,30,,2016-12-07,-121.4834502287,38.5830844066,"",USA,0
+salt_lake_city,Salt Lake City,70,utah,2016-12-07,-111.91222752,40.6764869495,"",USA,0
+san_antonio,San Antonio,30,,2016-12-07,-98.5049349285,29.4622715269,"",USA,0
+san_diego,San Diego,30,,2016-12-07,-117.1583594977,32.7191185133,"",USA,0
+santiago,Santiago,30,,2016-12-07,-70.6536469819,-33.4727912886,"",Chile,0
+seattle,Seattle,60,,2016-12-07,-122.2464134616,47.6241481909,"",USA,0
+singapore,Singapore,30,,2016-12-07,103.8436804793,1.3335807109,"",Singapore,0
+st_louis,St. Louis,30,,2016-12-07,-90.2402135106,38.6379211339,"",USA,0
+st_petersburg,St Petersburg,40,,2016-12-07,30.3282084033,59.9330239243,"",Russia,0
+stavanger,Stavanger,10,norway,2017-01-26,5.7345974191,58.9636295571,"",Norway,0
+stockholm,Stockholm,30,sweden,2016-12-07,18.064682493,59.3260975377,"",Sweden,0
+strassbourg,Strassbourg,20,strassbourg,2016-12-07,7.7318102191,48.5793942676,"",France,0
+sydney,Sydney,50,new_south_wales,2016-12-14,151.064341894,-33.8269177663,"",Australia,0
+szczecin,Szczecin,20,,2016-12-07,14.5598170576,53.4263364775,"",Poland,0
+tallinn,Tallinn,20,estonia,2016-12-07,24.7530026656,59.4341576308,"",Estonia,0
+tampa,Tampa,30,,2016-12-07,-82.4519155802,27.9985992762,"",USA,0
+tampere,Tampere,30,finland-matka,2016-12-07,23.7490811138,61.4998559294,"",Finland,0
+tel_aviv,Tel Aviv,20,israel,2016-12-07,34.7911754845,32.0663278973,"",Israel,0
+the_hague,The Hague,20,netherlands,2016-12-07,4.309705849,52.0737869926,"",Netherlands,0
+tilburg,Tilburg,20,netherlands,2016-12-07,5.0808287916,51.5594747862,"",Netherlands,0
+toronto,Toronto,70,,2016-12-07,-79.3950108319,43.6705582564,"",Canada,0
+toulouse,Toulouse,20,toulouse,2016-12-07,1.4428450287,43.6021045168,"",France,0
+trondheim,Trondheim,10,norway,2017-01-26,10.3951676564,63.430431276,"",Norway,0
+tucson,Tucson,30,,2016-12-07,-110.9429596987,32.237421866,"",USA,0
+turin,Turin,20,,2016-12-07,7.6823287356,45.0679540669,"",Italy,0
+turku,Turku,10,finland-matka,2016-12-07,22.2671054796,60.4491278151,"",Finland,0
+umea,Umeå,10,sweden,2016-12-07,20.2641803907,63.8270540054,"",Sweden,0
+uppsala,Uppsala,10,sweden,2016-12-07,17.6465666795,59.8583801984,"",Sweden,0
+utrecht,Utrecht,20,netherlands,2016-12-07,5.1009716964,52.0945064965,"",Netherlands,0
+valencia,Valencia,30,,2016-12-07,-0.3759178094,39.4715332329,"",Spain,0
+valparaiso,Valparaiso,20,,2016-12-07,-71.5500062456,-33.0223540681,"",Chile,0
+vancouver,Vancouver,30,,2016-12-07,-122.9049988708,49.2187973649,"",Canada,0
+vasteras,Västerås,10,sweden,2016-12-07,16.5523179241,59.6073797014,"",Sweden,0
+venice,Venice,20,,2016-12-07,12.2416314485,45.4882377088,"",Italy,0
+vilnius,Vilnius,20,,2016-12-07,25.2721203535,54.6830446169,"",Lithuania,0
+virginia_beach-norfolk,Virginia Beach-Norfolk,30,,2016-12-07,-76.2899382679,36.9276420795,"",USA,0
+warsaw,Warsaw,30,,2016-12-07,21.0139052785,52.2404391435,"",Poland,0
+washington_dc,Washington DC,50,maryland;washington_dc,2016-12-07,-77.0317226316,38.9102626173,"",USA,0
+wellington,Wellington,30,,2016-12-07,174.8522366861,-41.2232617907,"",New Zealand,0
+winnipeg,Winnipeg,30,,2016-12-07,-97.135217402,49.881858226,"",Canada,0
+wroclaw,Wroclaw,20,,2016-12-07,17.0310449543,51.1066887478,"",Poland,0
+zurich,Zurich,20,switzerland,2016-12-01,8.5405916358,47.3763152735,"",Switzerland,0
