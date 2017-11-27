@@ -9,18 +9,18 @@ This script acts as a parent process when importing multiple feeds in one go.
 """
 
 ALL_CITIES = ["adelaide", "antofagasta", "athens", "belfast",
-              "berlin", "bordeaux", "brisbane", "canberra", "detroit", "dublin", "lisbon", "luxembourg", "melbourne", "grenoble",
+              "berlin", "bordeaux", "brisbane", "canberra", "detroit", "dublin", "kuopio", "lisbon", "luxembourg", "melbourne", "grenoble",
               "nantes", "palermo", "prague", "mallorca", "paris", "rennes", "rio_de_janeiro", "rome", "sydney",
-              "toulouse", "valencia", "valparaiso", "venice", "winnipeg", "helsinki"]
+              "toulouse", "turku", "valencia", "valparaiso", "venice", "winnipeg", "helsinki"]
 
 def main():
     # cities_to_import = [city for city in all_cities if city not in cities_to_neglect]
 
-    start_from = "bilbao"
-    cities_to_import = ALL_CITIES[ALL_CITIES.index(start_from):]
+    # start_from = "adelaide"
+    # cities_to_import = ALL_CITIES[ALL_CITIES.index(start_from):]
     
-    # cities_to_import = ALL_CITIES  # ["melbourne"]
-    commands = ["extract_start_date"]  # "clear", "full"]
+    cities_to_import = ["luxembourg"] # ALL_CITIES  # ["melbourne"]
+    commands = ["copy_from_hammer", "extract_start_date"] # copy_from_hammer"] # "extract_start_date"]  # "clear", "full"]
 
     print("Cities to import: ", cities_to_import)
     buffer_by_line = 1
