@@ -20,7 +20,7 @@ CITY_ID_TO_NOTES_STR = {
     "grenoble": _DATA_OK_BUT + " regional/long distance railways are not included.",
     "helsinki": _DATA_OK_BUT + " some long lines ('tendrils') spread far out from Helsinki.",
     "lisbon": _DATA_OK,
-    "luxembourg": _TODO_STR + "\n" + _MIN_TRANSFER_TIME_STOP_PAIRS_NOTE,
+    "luxembourg": _DATA_OK + "\n" + _MIN_TRANSFER_TIME_STOP_PAIRS_NOTE,
     "mallorca": "The data is missing the inner city public transport!",
     "melbourne": _DATA_OK,
     "nantes": _DATA_OK,
