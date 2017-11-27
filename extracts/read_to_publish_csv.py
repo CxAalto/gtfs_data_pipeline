@@ -34,12 +34,14 @@ def get_to_publish_csv():
     """
     this_dir = os.path.dirname(os.path.realpath(__file__))
     path_to_to_publish_csv = os.path.join(this_dir, "to_publish.csv")
-    dtypes = {"publishable": bool,
+    dtypes = {"publishable": object,
               "license_files": str,
               "lat": float,
               "lon": float,
               "buffer": float,
-              "feeds": str}
+              "feeds": str,
+              "extract_start_date": object,
+              "download_date": object}
     to_publish_list = pandas.read_csv(path_to_to_publish_csv, sep=",", keep_default_na=True, dtype=dtypes)
     to_publish_list.license_files.fillna("")
     return to_publish_list

@@ -144,6 +144,7 @@ class ExtractPipeline(object):
         self.lat = float(city_publish_tuple.lat)
         self.lon = float(city_publish_tuple.lon)
         self.publishable = city_publish_tuple.publishable
+        self.extract_start_date = city_publish_tuple.extract_start_date
 
         self.buffer_distance = float(city_publish_tuple.buffer)
         self.name = city_publish_tuple.name
@@ -587,7 +588,7 @@ class ExtractPipeline(object):
     def plot_weekly_extract_start_and_download_dates(self):
         main_G = GTFS(self.main_db_path)
         assert isinstance(main_G, GTFS)
-        day_extract_date_start = main_G.get_weekly_extract_start_date()
+        day_extract_date_start = self.__get_weekly_extract_start_date()
         print("Weekly extract start date: " + str(day_extract_date_start))
         print("Download date: " + str(self.download_date))
         from gtfspy.plots import plot_trip_counts_per_day
@@ -595,15 +596,15 @@ class ExtractPipeline(object):
                                         highlight_dates=[day_extract_date_start, self.download_date],
                                         highlight_date_labels=["Extract date start", "Download date"])
         ax.set_title(self.city_id)
-        plt.show()
         ax.figure.savefig(self.weekly_extract_dates_plot_fname)
+        print("saved figure to " + self.weekly_extract_dates_plot_fname)
 
     @flushed
     def __create_temporal_extract_from_main_db(self, days, output_db_path):
         if not os.path.isfile(output_db_path):
             main_G = GTFS(self.main_db_path)
             assert isinstance(main_G, GTFS)
-            day_extract_date_start = main_G.get_weekly_extract_start_date()
+            day_extract_date_start = self.__get_weekly_extract_start_date()
             end_date_exclusive = day_extract_date_start + datetime.timedelta(days)
             print("Creating file " + output_db_path + " ...")
             fe = filter.FilterExtract(main_G,
@@ -615,7 +616,15 @@ class ExtractPipeline(object):
         else:
             print("File " + output_db_path + " already exists, proceeding....")
 
-
+    def __get_weekly_extract_start_date(self):
+        if isinstance(self.extract_start_date, (str)) and len(self.extract_start_date) == 10:
+            print(bool(self.extract_start_date))
+            return self.extract_start_date
+        else:
+            main_G = GTFS(self.main_db_path)
+            assert isinstance(main_G, GTFS)
+            day_extract_date_start = main_G.get_weekly_extract_start_date()
+            return day_extract_date_start
 
 if __name__ == "__main__":
     main()
