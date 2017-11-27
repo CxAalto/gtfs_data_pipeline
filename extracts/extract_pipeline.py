@@ -617,9 +617,9 @@ class ExtractPipeline(object):
             print("File " + output_db_path + " already exists, proceeding....")
 
     def __get_weekly_extract_start_date(self):
-        if isinstance(self.extract_start_date, (str)) and len(self.extract_start_date) == 10:
-            print(bool(self.extract_start_date))
-            return self.extract_start_date
+        if isinstance(self.extract_start_date, (str)):
+            assert(len(self.extract_start_date) == 10)
+            return datetime.datetime.strptime(self.extract_start_date, "%Y-%m-%d")
         else:
             main_G = GTFS(self.main_db_path)
             assert isinstance(main_G, GTFS)
