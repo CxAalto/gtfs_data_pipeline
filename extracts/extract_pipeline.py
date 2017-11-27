@@ -239,9 +239,9 @@ class ExtractPipeline(object):
         self._write_main_db_validation_warnings()
         self._compute_stop_distances_osm_for_main_db()
         self._create_data_extracts()
+        self._write_city_notes()
         self._create_zip()
         self._create_thumbnail_for_web()  # not part of the data extract, goes to web only
-        self._write_city_notes()
 
     @flushed
     def _create_raw_db(self):
