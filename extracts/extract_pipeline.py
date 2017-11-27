@@ -551,7 +551,7 @@ class ExtractPipeline(object):
         start_dates = []
         end_dates = []
         subfeed_start_end_dict_for_logging = {}
-        for subfeed in self._get_subfeed_paths:
+        for subfeed in self._get_subfeed_paths():
             start = float('inf')
             end = -float('inf')
             for table, [start_date_col, end_date_col] in zip(['calendar', 'calendar_dates'],
