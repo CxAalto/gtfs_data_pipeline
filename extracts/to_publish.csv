@@ -62,7 +62,7 @@ jyvaskyla,Jyväskylä,30,finland-matka,2016-12-07,,25.7506492603,62.24650616,"",
 kansas_city,Kansas City,30,,2016-12-07,,-94.5683107075,39.0743918147,"",USA,0
 kaunas,Kaunas,20,,2016-12-12,,23.9181668394,54.8991575048,"",Lithuania,0
 kuala_lumpur,Kuala Lumpur,40,,2016-12-07,,101.6787561024,3.1038817012,"",Malaysia,0
-kuopio,Kuopio,10,finland-matka,2016-12-07,,27.6807300896,62.8944693649,"",Finland,0
+kuopio,Kuopio,10,kuopio,2016-12-07,,27.6807300896,62.8944693649,"",Finland,0
 lahti,Lahti,20,finland-matka,2016-12-07,,25.6588538829,60.976382207,"",Finland,0
 las_vegas,Las Vegas,30,,2016-12-07,,-115.155235193,36.1593174894,"",USA,0
 lausanne,Lausanne,20,switzerland,2016-12-07,,6.6259209566,46.5196067712,"",Switzerland,0
@@ -146,7 +146,7 @@ toulouse,Toulouse,20,toulouse,2016-12-07,,1.4428450287,43.6021045168,"",France,0
 trondheim,Trondheim,10,norway,2017-01-26,,10.3951676564,63.430431276,"",Norway,0
 tucson,Tucson,30,,2016-12-07,,-110.9429596987,32.237421866,"",USA,0
 turin,Turin,20,,2016-12-07,,7.6823287356,45.0679540669,"",Italy,0
-turku,Turku,10,finland-matka,2016-12-07,,22.2671054796,60.4491278151,"",Finland,0
+turku,Turku,10,turku,2016-12-07,,22.2671054796,60.4491278151,"",Finland,0
 umea,Umeå,10,sweden,2016-12-07,,20.2641803907,63.8270540054,"",Sweden,0
 uppsala,Uppsala,10,sweden,2016-12-07,,17.6465666795,59.8583801984,"",Sweden,0
 utrecht,Utrecht,20,netherlands,2016-12-07,,5.1009716964,52.0945064965,"",Netherlands,0
