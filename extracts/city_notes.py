@@ -4,6 +4,9 @@ _DATA_OK_EXCEPT = "The data should cover all relevant modes of intra-city public
 _TODO_STR = "!!!!!!!!!!!!!!!!This feed needs to be checked still!!!!!!!!!!!!!"
 _MIN_TRANSFER_TIME_STOP_PAIRS_NOTE = "There are some stop pairs for which minimum transfer time is defined, although they are more than 1000 meters apart, and walking distances are also computed between these stops."
 
+
+
+
 CITY_ID_TO_NOTES_STR = {
     "adelaide": _DATA_OK,
     "antofagasta": _DATA_OK_BUT + " in Antofagasta there are also \"collectivos\" "
@@ -19,6 +22,7 @@ CITY_ID_TO_NOTES_STR = {
     "dublin": _DATA_OK + " Some long lines ('tendrils') spread far out from Dublin.",
     "grenoble": _DATA_OK_BUT + " regional/long distance railways are not included.",
     "helsinki": _DATA_OK_BUT + " some long lines ('tendrils') spread far out from Helsinki.",
+    "kuopio": _DATA_OK,
     "lisbon": _DATA_OK,
     "luxembourg": _DATA_OK + "\n" + _MIN_TRANSFER_TIME_STOP_PAIRS_NOTE,
     "mallorca": "The data is missing the inner city public transport!",
@@ -31,6 +35,7 @@ CITY_ID_TO_NOTES_STR = {
     "rennes": _DATA_OK_EXCEPT + " regional train connections.",
     "rio_de_janeiro":  "Only the bus network is covered, no trams, metros, ferries or trains are included",
     "rome": _DATA_OK,
+    "turku": _DATA_OK,
     "sydney": _DATA_OK + " Some long lines ('tendrils') spread far out from Sidney." ,
     "toulouse": _DATA_OK_BUT + " regional/long distance railways are not included.",
     "valencia": "Only bus traffic is included. Data for metros is not available.",
