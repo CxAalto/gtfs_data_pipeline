@@ -39,6 +39,9 @@ CITY_ID_TO_NOTES_STR = {
     "sydney": _DATA_OK + " Some long lines ('tendrils') spread far out from Sidney." ,
     "toulouse": _DATA_OK_BUT + " regional/long distance railways are not included.",
     "valencia": "Only bus traffic is included. Data for metros is not available.",
+    "valparaiso": "The feed does not include funiculars.\n"
+                  "Note that in addition to public transport, in Valparaiso there are also `collectivos` (shared taxis).\n"
+                  "The feed end dates in original data were tens of years ahead (in calendar.txt). The end dates were shortened manually before filtering.",
     "venice": "Regional railroad connections are missing (in mainland Venice). Otherwise essential city information seems to be ",
     "winnipeg": _DATA_OK,
 }

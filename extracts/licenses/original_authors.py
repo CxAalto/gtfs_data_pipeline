@@ -1,7 +1,6 @@
 FEED_SLUG_TO_AUTHOR_STR = {
     "adelaide": "Department of Planning, Transport and Infrastructure [South Australia]",
     "antofagasta": "Subsecretaría de Transporte [Chile]",
-    "valparaiso": "Subsecretaría de Transporte [Chile]",
     "detroit": "Department of Transportation (DDOT) [Detroit]",
     "kuopio": "City of Kuopio (Kuopion kaupunki)",
     "lisbon": "Transporlis",
@@ -28,6 +27,7 @@ FEED_SLUG_TO_AUTHOR_STR = {
     "toulouse": "Tisséo",
     "turku": "Turun kaupungin joukkoliikennetoimisto (Public transport office of the city of Turku)",
     "valencia": "Valencia City Council",
+    "valparaiso": "Subsecretaría de Transporte [Chile]",
     "venice": "ACTV SpA",
     "winnipeg": "Winnipeg Transit",
     "helsinki": "Helsinki Region Transport"
