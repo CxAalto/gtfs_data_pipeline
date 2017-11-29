@@ -11,7 +11,10 @@ This script acts as a parent process when importing multiple feeds in one go.
 ALL_CITIES = ["adelaide", "antofagasta", "athens", "belfast",
               "berlin", "bordeaux", "brisbane", "canberra", "detroit", "dublin", "kuopio", "lisbon", "luxembourg", "melbourne", "grenoble",
               "nantes", "palermo", "prague", "mallorca", "paris", "rennes", "rio_de_janeiro", "rome", "sydney",
-              "toulouse", "turku", "valencia", "valparaiso", "venice", "winnipeg", "helsinki"]
+              "toulouse", "turku", "venice", "winnipeg", "helsinki"]
+
+# "valencia", "valparaiso" were excluded as their data contained missing stop_times entries
+# With some effort they could be added, though.
 
 def main():
     # cities_to_import = [city for city in all_cities if city not in cities_to_neglect]
@@ -19,8 +22,8 @@ def main():
     # start_from = "adelaide"
     # cities_to_import = ALL_CITIES[ALL_CITIES.index(start_from):]
     
-    cities_to_import = ["luxembourg"] # ALL_CITIES  # ["melbourne"]
-    commands = ["copy_from_hammer", "extract_start_date"] # copy_from_hammer"] # "extract_start_date"]  # "clear", "full"]
+    cities_to_import = ["helsinki"] # ALL_CITIES  # ["melbourne"]
+    commands = ["deploy_to_server"]  # , "extract_start_date"] # copy_from_hammer"] # "extract_start_date"]  # "clear", "full"]
 
     print("Cities to import: ", cities_to_import)
     buffer_by_line = 1
@@ -43,6 +46,7 @@ def main():
 
 
 def print_dates_for_a_city(city):
+    from matplotlib import pyplot as plt
     for to_publish_tuple, feeds in list(to_publish_generator()):
         if to_publish_tuple.id == city:
             try:
@@ -51,12 +55,12 @@ def print_dates_for_a_city(city):
             except Exception as e:
                 print("Something went wrong with city " + city + " :")
                 print(str(e))
-
+    plt.show()
 
 def copy_from_hammer(city_id):
     copy_dir_name = os.path.join("copies_from_hammer", city_id)
     os.makedirs(copy_dir_name, exist_ok=True)
-    copy_command = "rsync -avz hammer:/m/cs/scratch/networks/rmkujala/transit/to_publish/" + city_id + "/* " + copy_dir_name + "/"
+    copy_command = "rsync -avz --progress hammer:/m/cs/scratch/networks/rmkujala/transit/to_publish/" + city_id + "/* " + copy_dir_name + "/"
     print(copy_command)
     subprocess.call(copy_command, shell=True)
 
