@@ -33,10 +33,9 @@ See ExtractPipeline.run_full_without_deploy for details on what is done.
 """
 
 import matplotlib
-matplotlib.use("agg")
+# matplotlib.use("agg")
 # matplotlib.use("TkAgg") use this if interactive stuff wanted
 
-from matplotlib import pyplot as plt
 
 AVAILABLE_COMMANDS = ['full',
                       "thumbnail",
@@ -90,9 +89,10 @@ def main():
                     elif cmd == "thumbnail":
                         pipeline._create_thumbnail_for_web()
                     elif cmd == "deploy_to_server":
-                        pipeline.assert_contents_exist()
                         pipeline.remove_temporary_files()
-                        pipeline.deploy_output_directory_to_server()
+                        pipeline.assert_contents_exist()
+                        pipeline.create_zip()
+                        pipeline.deploy_to_transportnetorks_cs_aalto()
                     elif cmd == "clear":
                         pipeline.clear()
                     elif cmd == "clean":
@@ -198,17 +198,19 @@ class ExtractPipeline(object):
         self.tv_warnings = None  # timetable validation warnings
         self.iv_warnings = None  # import validation warnings
 
-        self.raw_import_warnings_summary_fname = os.path.join(self.output_directory, "raw_db_import_warnings_summary.log")
-        self.raw_import_warnings_details_fname = os.path.join(self.output_directory, "raw_db_import_warnings_details.log")
+        self.raw_import_warnings_summary_fname = os.path.join(self.output_directory, ExtractPipeline.TEMP_FILE_PREFIX + "raw_db_import_warnings_summary.log")
+        self.raw_import_warnings_details_fname = os.path.join(self.output_directory, ExtractPipeline.TEMP_FILE_PREFIX + "raw_db_import_warnings_details.log")
 
-        self.main_db_timetable_warnings_summary_fname= os.path.join(self.output_directory, "main_db_timetable_warnings_summary.log")
-        self.main_db_timetable_warnings_details_fname = os.path.join(self.output_directory, "main_db_timetable_warnings_details.log")
+        self.main_db_timetable_warnings_summary_fname= os.path.join(self.output_directory,  ExtractPipeline.TEMP_FILE_PREFIX + "main_db_timetable_warnings_summary.log")
+        self.main_db_timetable_warnings_details_fname = os.path.join(self.output_directory, ExtractPipeline.TEMP_FILE_PREFIX + "main_db_timetable_warnings_details.log")
 
         self.week_db_timetable_warnings_summary_fname = os.path.join(self.output_directory, "week_db_timetable_warnings_summary.log")
-        self.week_db_timetable_warnings_details_fname = os.path.join(self.output_directory, "week_db_timetable_warnings_details.log")
+        self.week_db_timetable_warnings_details_fname = os.path.join(self.output_directory, ExtractPipeline.TEMP_FILE_PREFIX + "week_db_timetable_warnings_details.log")
 
         self.weekly_extract_dates_plot_fname = os.path.join(self.output_directory,
                                                             ExtractPipeline.TEMP_FILE_PREFIX + "extract_start_date_plot.pdf")
+
+        self.zip_file_name = os.path.join(self.output_directory, self.city_id + ".zip")
 
     @flushed
     def clear(self):
@@ -241,7 +243,6 @@ class ExtractPipeline(object):
         self._compute_stop_distances_osm_for_main_db()
         self._create_data_extracts()
         self._write_city_notes()
-        self._create_zip()
         self._create_thumbnail_for_web()  # not part of the data extract, goes to web only
 
     @flushed
@@ -318,11 +319,18 @@ class ExtractPipeline(object):
         return SUCCESS
 
     @flushed
-    def deploy_output_directory_to_server(self):
+    def deploy_to_transportnetorks_cs_aalto(self):
         assert self.publishable, "Feed " + self.city_id + " is not marked as publishable (1) according to to_publish.csv"
-        cmd = "rsync -av " + self.output_directory + "/ " + "transportnetworks:/srv/transit/data/city_extracts/" + \
-              self.city_id + "/" + self.download_date + "/"
-        subprocess.run(cmd, shell=True, check=True)
+        server_dir_base_name = "/srv/transit/data/city_extracts/"
+        server_dir_name = "/srv/transit/data/city_extracts/" + self.city_id
+        cmd1 = 'ssh -t transportnetworks "mkdir -p ' + server_dir_name + '"'
+        subprocess.run(cmd1, shell=True, check=True)
+        cmd2 = "rsync -avz --progress " + self.week_db_path + " transportnetworks:" + server_dir_name + "/week.sqlite"
+        subprocess.run(cmd2, shell=True, check=True)
+        cmd3 = "rsync -avz --progress " + self.stats_fname + " transportnetworks:" + server_dir_name + "/stats.csv"
+        subprocess.run(cmd3, shell=True, check=True)
+        cmd4 = "rsync -avz --progress " + self.zip_file_name + " transportnetworks:" + server_dir_base_name
+        subprocess.run(cmd4, shell=True, check=True)
 
     @flushed
     def _write_stats(self):
@@ -519,13 +527,12 @@ class ExtractPipeline(object):
         g.conn.commit()
 
     @flushed
-    def _create_zip(self):
+    def create_zip(self):
         self.assert_contents_exist(include_zip=False)
-        zip_file_name = os.path.join(self.output_directory, self.city_id + ".zip")
-        if os.path.exists(zip_file_name):
-            os.remove(zip_file_name)
+        if os.path.exists(self.zip_file_name):
+            os.remove(self.zip_file_name)
         all_files = [os.path.join(self.output_directory, f) for f in listdir(self.output_directory)]
-        with ZipFile(zip_file_name, 'w') as cityzip:
+        with ZipFile(self.zip_file_name, 'w') as cityzip:
             for path_to_file in all_files:
                 print(path_to_file)
                 cityzip.write(path_to_file, self.city_id + "/" + os.path.basename(path_to_file))
