@@ -87,7 +87,7 @@ def main():
                     elif cmd == "licenses":
                         pipeline._create_license_files()
                     elif cmd == "thumbnail":
-                        pipeline._create_thumbnail_for_web()
+                        pipeline.create_thumbnail_for_web()
                     elif cmd == "deploy_to_server":
                         pipeline.remove_temporary_files()
                         pipeline.assert_contents_exist()
@@ -209,7 +209,7 @@ class ExtractPipeline(object):
 
         self.weekly_extract_dates_plot_fname = os.path.join(self.output_directory,
                                                             ExtractPipeline.TEMP_FILE_PREFIX + "extract_start_date_plot.pdf")
-
+        self.thumbnail_path = os.path.join(self.output_directory, "thumbnail.jpg")
         self.zip_file_name = os.path.join(self.output_directory, self.city_id + ".zip")
 
     @flushed
@@ -243,7 +243,7 @@ class ExtractPipeline(object):
         self._compute_stop_distances_osm_for_main_db()
         self._create_data_extracts()
         self._write_city_notes()
-        self._create_thumbnail_for_web()  # not part of the data extract, goes to web only
+        self.create_thumbnail_for_web()
 
     @flushed
     def _create_raw_db(self):
@@ -290,10 +290,11 @@ class ExtractPipeline(object):
         g.meta['name'] = self.name
 
     @flushed
-    def _create_thumbnail_for_web(self):
+    def create_thumbnail_for_web(self):
         from gtfspy.mapviz import plot_route_network_thumbnail
-        ax = plot_route_network_thumbnail(GTFS(self.week_db_path))
+        ax = plot_route_network_thumbnail(GTFS(self.week_db_path), map_style="dark_all")
         ax.figure.savefig(os.path.join(THUMBNAIL_DIR, self.city_id + ".jpg"))
+        ax.figure.savefig(self.thumbnail_path)
 
     @flushed
     def assert_contents_exist(self, include_zip=True):
@@ -309,7 +310,8 @@ class ExtractPipeline(object):
                           "week.gtfs.zip",
                           "network_bus.csv",  # all cities we deal with should have buses
                           "license.txt",
-                          "notes.txt"
+                          "notes.txt",
+                          "thumbnail.jpg"
                           ]
         if include_zip:
             files_required.append(self.city_id + ".zip")
@@ -323,14 +325,16 @@ class ExtractPipeline(object):
         assert self.publishable, "Feed " + self.city_id + " is not marked as publishable (1) according to to_publish.csv"
         server_dir_base_name = "/srv/transit/data/city_extracts/"
         server_dir_name = "/srv/transit/data/city_extracts/" + self.city_id
-        cmd1 = 'ssh -t transportnetworks "mkdir -p ' + server_dir_name + '"'
-        subprocess.run(cmd1, shell=True, check=True)
-        cmd2 = "rsync -avz --progress " + self.week_db_path + " transportnetworks:" + server_dir_name + "/week.sqlite"
-        subprocess.run(cmd2, shell=True, check=True)
-        cmd3 = "rsync -avz --progress " + self.stats_fname + " transportnetworks:" + server_dir_name + "/stats.csv"
-        subprocess.run(cmd3, shell=True, check=True)
-        cmd4 = "rsync -avz --progress " + self.zip_file_name + " transportnetworks:" + server_dir_base_name
-        subprocess.run(cmd4, shell=True, check=True)
+        cmd = 'ssh -t transportnetworks "mkdir -p ' + server_dir_name + '"'
+        subprocess.run(cmd, shell=True, check=True)
+        cmd = "rsync -avz --progress " + self.week_db_path + " transportnetworks:" + server_dir_name + "/week.sqlite"
+        subprocess.run(cmd, shell=True, check=True)
+        cmd = "rsync -avz --progress " + self.stats_fname + " transportnetworks:" + server_dir_name + "/stats.csv"
+        subprocess.run(cmd, shell=True, check=True)
+        cmd = "rsync -avz --progress " + self.thumbnail_path + " transportnetworks:" + server_dir_name + "/thumbnail.jpg"
+        subprocess.run(cmd, shell=True, check=True)
+        cmd = "rsync -avz --progress " + self.zip_file_name + " transportnetworks:" + server_dir_base_name
+        subprocess.run(cmd, shell=True, check=True)
 
     @flushed
     def _write_stats(self):
