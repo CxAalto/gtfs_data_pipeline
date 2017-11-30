@@ -22,10 +22,11 @@ def main():
     # start_from = "adelaide"
     # cities_to_import = ALL_CITIES[ALL_CITIES.index(start_from):]
     
-    cities_to_import = ["helsinki"] # ALL_CITIES  # ["melbourne"]
-    commands = ["deploy_to_server"]  # , "extract_start_date"] # copy_from_hammer"] # "extract_start_date"]  # "clear", "full"]
+    commands = ["clear", "full"] # , "extract_start_date"] # copy_from_hammer"] # "extract_start_date"]  # "clear", "full"]
+    cities_to_import = ["helsinki"] # ALL_CITIES
 
     print("Cities to import: ", cities_to_import)
+    print("Commands to run: " , commands)
     buffer_by_line = 1
     for command in commands:
         logfile_path = get_logfile_base(command)
