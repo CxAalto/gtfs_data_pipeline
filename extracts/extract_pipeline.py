@@ -33,7 +33,7 @@ See ExtractPipeline.run_full_without_deploy for details on what is done.
 """
 
 import matplotlib
-# matplotlib.use("agg")
+matplotlib.use("agg")
 # matplotlib.use("TkAgg") use this if interactive stuff wanted
 
 
@@ -89,7 +89,6 @@ def main():
                     elif cmd == "thumbnail":
                         pipeline.create_thumbnail_for_web()
                     elif cmd == "deploy_to_server":
-                        pipeline.remove_temporary_files()
                         pipeline.assert_contents_exist()
                         pipeline.create_zip()
                         pipeline.deploy_to_transportnetorks_cs_aalto()
@@ -297,7 +296,7 @@ class ExtractPipeline(object):
         ax.figure.savefig(self.thumbnail_path)
 
     @flushed
-    def assert_contents_exist(self, include_zip=True):
+    def assert_contents_exist(self, include_zip=False):
         files_required = ["network_combined.csv",
                           "network_nodes.csv",
                           "network_walk.csv",
@@ -535,7 +534,7 @@ class ExtractPipeline(object):
         self.assert_contents_exist(include_zip=False)
         if os.path.exists(self.zip_file_name):
             os.remove(self.zip_file_name)
-        all_files = [os.path.join(self.output_directory, f) for f in listdir(self.output_directory)]
+        all_files = [os.path.join(self.output_directory, f) for f in listdir(self.output_directory) if ExtractPipeline.TEMP_FILE_PREFIX not in f]
         with ZipFile(self.zip_file_name, 'w') as cityzip:
             for path_to_file in all_files:
                 print(path_to_file)
