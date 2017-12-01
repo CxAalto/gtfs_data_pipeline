@@ -1,3 +1,5 @@
+This repository contains code for automated downloading and storage of GTFS data, and the subsequent processing of the GTFS data into public transport network extracts covering individual cities. 
+
 ### Contents of gtfs_data_pipeline/
 
 - `download/`:
@@ -13,9 +15,9 @@
     Data on the gtfs-sources we have been downloading.
 - `gtfs_scrape.sh`:
     Helper script to do the weekly download.
-- 'credentials.yaml':
+- `credentials.yaml`:
     A (symbolic) link to the credentials (not present in the repository, create your own!)
-- 'credentials_template.yaml':
+- `credentials_template.yaml`:
     An example credentials file.
 
 ### Authors:
