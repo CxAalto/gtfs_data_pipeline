@@ -11,7 +11,7 @@ CITY_ID_TO_NOTES_STR = {
     "adelaide": _DATA_OK,
     "antofagasta": _DATA_OK_BUT + " in Antofagasta there are also \"collectivos\" "
                                      "that operate on regular routes but are not centrally coordinated.",
-    "athens": "The data does not contain metro lines and the suburban railways. Some bus routes are erronously marked as tram lines(?)",
+    "athens": "The data does not contain suburban railways.",
     "belfast": "The data does not contain railroad connections.",
     "berlin": _DATA_OK,
     "bordeaux": "The data does not contain regional bus and rail transport.",
