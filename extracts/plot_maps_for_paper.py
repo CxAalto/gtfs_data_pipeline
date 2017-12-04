@@ -53,20 +53,22 @@ def plot_overall_map(ax=None, save_figure=True):
     # Get coordinates of all cities, and plot them on a map.
     # Red dots on a whitish background should do?
     to_publish_csv = get_to_publish_csv()
-    publishable = to_publish_csv[to_publish_csv["publishable"] == "1"]
-    print(publishable)
-    lons = publishable['lon'].values
-    lats = publishable['lat'].values
+    cities_to_plot = to_publish_csv[to_publish_csv['id'].isin(ALL_CITIES)]
+    lons = cities_to_plot['lon'].values
+    lats = cities_to_plot['lat'].values
 
     map = Basemap(projection="robin", lon_0=0, ax=ax)
     # plot coastlines, draw label meridians and parallels.
-    map.drawcoastlines()
+    map.drawcoastlines(linewidth=0.5)
     map.drawparallels(numpy.arange(-90, 90, 30), labels=[1, 0, 0, 0])
     map.drawmeridians(numpy.arange(map.lonmin, map.lonmax + 30, 60), labels=[0, 0, 0, 1])
     # fill continents 'coral' (with zorder=0), color wet areas 'aqua'
     map.drawmapboundary(fill_color='#dbe8ff')
     map.fillcontinents(color='white', lake_color='#dbe8ff')
-    map.scatter(lons, lats, color="red", latlon=True, s=80, zorder=10)
+    print(lons)
+    print(lats)
+    lons, lats = map(lons,lats)
+    map.scatter(list(lons), list(lats), color="red", latlon=False, s=40, zorder=10)
 
     if save_figure:
         fname = os.path.join(FIG_PATH_DIR, "overall_map.pdf")
@@ -81,12 +83,17 @@ if __name__ == "__main__":
         pass
     print("Saving map figures to " + FIG_PATH_DIR)
 
+    # plot_city_figs()
+
     fig = plt.figure(figsize=(8, 8))
     fig.subplots_adjust(left=0.02, right=0.98, top=0.98, bottom=0.02)
     ax = fig.add_subplot(2, 1, 1)
     plot_overall_map(ax, save_figure=False)
     axes = [fig.add_subplot(2, 2, 3), fig.add_subplot(2, 2, 4)]
-    plot_city_figs(["rome", "detroit"], axes=axes, save_figure=False)
+    plot_city_figs(["rome", "winnipeg"], axes=axes, save_figure=False)
     filepath = os.path.join(FIG_PATH_DIR, "paper_fig.pdf")
-    fig.tight_layout()
+    # fig.tight_layout()
+    print("Saving paper map figure to " + filepath)
+    # plt.show()
     fig.savefig(filepath)
+    fig.savefig(filepath.replace("pdf", "svg"))

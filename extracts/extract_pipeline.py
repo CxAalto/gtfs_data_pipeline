@@ -346,17 +346,15 @@ class ExtractPipeline(object):
         for from_I, to_I, data in sections:
             section_lengths.append(data['d'])
             vehicle_kilometers_per_section.append(data['n_vehicles'] * data['d'] / 1000.)
-        area = get_approximate_convex_hull_area_km2(G)
         stats = {"n_stops": len(G.stops()),
                  "n_connections": len(G.get_transit_events()),
-                 "center_lat": self.lat,
-                 "center_lon": self.lon,
-                 "diameter_km": self.buffer_distance,
+                 "buffer_center_lat": self.lat,
+                 "buffer_center_lon": self.lon,
+                 "buffer_radius_km": self.buffer_distance,
                  "n_links": n_links,
                  "network_length_m": sum(section_lengths),
                  "link_distance_avg_m": int(sum(section_lengths) / len(section_lengths)),
                  "vehicle_kilometers": sum(vehicle_kilometers_per_section),
-                 "area_km2": area
                  }
         self.__verify_stats(stats)
         df = pandas.DataFrame.from_dict({key:[value] for key, value in stats.items()})
