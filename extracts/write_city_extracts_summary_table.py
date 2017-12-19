@@ -84,7 +84,7 @@ with open(fname_details, "w") as f:
     print(fname_details)
     pandas.DataFrame(cities).to_latex(
         buf=f,
-        columns = ["City", "Center latitude", "Center longitude", "Buffer radius (km)", "Download date", "Extract date"],
+        columns = ["City", "Latitude", "Longitude", "Buffer radius (km)", "Download date", "Extract date"],
         float_format='%.4f',
         index=False
     )
