@@ -45,6 +45,7 @@ AVAILABLE_COMMANDS = ['full',
                       "copy_from_hammer",
                       "import_raw",
                       "clear_main",
+                      "stats",
                       "extract_start_date"]
 
 SUCCESS = True
@@ -94,6 +95,8 @@ def main():
                         pipeline.deploy_to_transportnetorks_cs_aalto()
                     elif cmd == "clear":
                         pipeline.clear()
+                    elif cmd == "stats":
+                        pipeline._write_stats()
                     elif cmd == "clean":
                         pipeline.remove_temporary_files()
                     elif cmd == "clear_main":
@@ -355,6 +358,7 @@ class ExtractPipeline(object):
                  "network_length_m": sum(section_lengths),
                  "link_distance_avg_m": int(sum(section_lengths) / len(section_lengths)),
                  "vehicle_kilometers": sum(vehicle_kilometers_per_section),
+                 "extract_start_date": self.__get_weekly_extract_start_date().strftime("%Y-%m-%d")
                  }
         self.__verify_stats(stats)
         df = pandas.DataFrame.from_dict({key:[value] for key, value in stats.items()})
@@ -372,7 +376,8 @@ class ExtractPipeline(object):
             "area_km2": float,     # Surface are of the extract, measured as the area of the convex hull of the PT stops. \\
             "diameter_km": float,  # Diameter: that was used in filtering"
             "center_lat": float,   # Latitude used for the center of filtering
-            "center_lon": float    # Longitude used for the center of filtering
+            "center_lon": float,    # Longitude used for the center of filtering
+            "extract_start_date": str
         }
         for key, key_type in keys_to_type.items():
             assert key in stats, "key " + key + " is missing"
@@ -625,6 +630,11 @@ class ExtractPipeline(object):
             print("File " + output_db_path + " already exists, proceeding....")
 
     def __get_weekly_extract_start_date(self):
+        """
+        Returns
+        -------
+        datetime.datetime
+        """
         print("Weekly extract start date")
         if isinstance(self.extract_start_date, str):
             assert(len(self.extract_start_date) == 10)
