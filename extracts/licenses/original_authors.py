@@ -12,7 +12,7 @@ FEED_SLUG_TO_AUTHOR_STR = {
     "bilbao": "Eusko Jaurlaritza / Basque Government",
     "bordeaux": "Bordeaux Métropole",
     "brisbane": "Queensland Government",
-    "canberra": "ACT Government, Transport Canberra and City Services",
+    "canberra": "ACT Government, Transport Canberra and City Services (Canberra), and Transport for New South Wales (Queanbeyan)",
     "dublin": "Transport For Ireland",
     "melbourne": "Victoria State Government, Public Transport Victoria",
     "grenoble": "MétroMobilité [Grenoble]",

@@ -10,7 +10,7 @@ This script acts as a parent process when importing multiple feeds in one go.
 
 ALL_CITIES = ["adelaide", "antofagasta", "athens", "belfast",
               "berlin", "bordeaux", "brisbane", "canberra", "detroit", "dublin", "kuopio", "lisbon", "luxembourg", "melbourne", "grenoble",
-              "nantes", "palermo", "prague", "mallorca", "paris", "rennes", "rio_de_janeiro", "rome", "sydney",
+              "nantes", "palermo", "prague", "paris", "rennes", "rome", "sydney",
               "toulouse", "turku", "venice", "winnipeg", "helsinki"]
 
 # "valencia", "valparaiso" were excluded as their data contained missing stop_times entries

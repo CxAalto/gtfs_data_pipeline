@@ -32,7 +32,6 @@ CITY_ID_TO_LICENSE_TYPE = {
     "kuopio": "CC_4.0",
     "melbourne": "CC_4.0",
     "nantes":  "ODBL_v1.0_fr",
-    "mallorca": "CC_4.0",
     "palermo": "CC_4.0",
     "paris": "ODBL_v1.0_fr",
     "rennes": "ODBL_v1.0",

@@ -27,7 +27,7 @@ brussel,Brussel,30,belgium,2016-12-07,,4.3775786804,50.8494588783,"",Belgium,0
 budapest,Budapest,30,,2016-12-07,,19.0584721114,47.4956814335,"",Hungary,0
 buffalo,Buffalo,30,,2016-12-07,,-78.8410809499,42.913680961,"",USA,0
 calgary,Calgary,30,,2016-11-24,,-114.0578847706,51.0397615702,"",Canada,0
-canberra,Canberra,30,,2016-12-07,,149.1253683622,-35.2766620388,"",Australia,1
+canberra,Canberra,30,canberra;new_south_wales,,2016-12-07,,149.1253683622,-35.2766620388,"",Australia,1
 charleroi,Charleroi,20,belgium,2016-12-07,,4.4458894011,50.4108746197,"",Belgium,0
 chicago,Chicago,60,,2016-12-07,,-87.6908223855,41.8645529485,"",USA,0
 cincinnati,Cincinnati,30,,2016-12-07,,-84.489852079,39.1416689699,"",USA,0
@@ -103,7 +103,7 @@ oslo,Oslo,20,norway,2016-12-07,,10.7501807147,59.923040279,"",Norway,0
 ottawa,Ottawa,30,,2016-12-07,,-75.6909057946,45.3962976144,"",Canada,0
 oulu,Oulu,30,finland-matka,2016-12-07,,25.4846906062,65.0121861812,"",Finland,0
 palermo,Palermo,20,,2016-12-07,,13.3597816096,38.1185512471,"",Italy,1
-mallorca,Palma de Mallorca,30,,2016-12-07,,2.649272261,39.5715793597,"",Spain,1
+mallorca,Palma de Mallorca,30,,2016-12-07,,2.649272261,39.5715793597,"",Spain,0
 paris,Paris,35,paris,2016-12-07,,2.3519030802,48.8619266629,"",France,1
 perth,Perth,80,,2016-12-07,,115.828270947,-32.046844004,"",Australia,0
 philadelphia,Philadelphia,60,philadelphia;new_jersey,2016-12-07,,-75.1347864664,39.9613471896,"",USA,0
