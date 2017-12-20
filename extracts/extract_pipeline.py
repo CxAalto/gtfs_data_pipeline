@@ -6,6 +6,7 @@ from os import listdir
 from zipfile import ZipFile
 
 import pandas
+import yaml
 
 from feed_manager import FeedManager
 from gtfspy import exports, filter, import_validator, timetable_validator, util
@@ -46,13 +47,14 @@ AVAILABLE_COMMANDS = ['full',
                       "import_raw",
                       "clear_main",
                       "stats",
-                      "extract_start_date"]
+                      "extract_start_date",
+                      "notes"]
 
 SUCCESS = True
 
 def main():
     try:
-        cmd = sys.argv[1]
+        command = sys.argv[1]
     except IndexError:
         print("Options: ")
         print(", ".join(AVAILABLE_COMMANDS))
@@ -69,49 +71,51 @@ def main():
     except IndexError:
         param2 = None
 
-    if cmd == 'status':
+    if command == 'status':
         if param1:
             FeedManager().write_complete_feeds_status(complete_feeds_path=param1)
         else:
             FeedManager().write_complete_feeds_status()
-    elif cmd in AVAILABLE_COMMANDS:
+    elif command in AVAILABLE_COMMANDS:
         city = param1
         download_date_override = param2
         for to_publish_tuple, feeds in to_publish_generator():
             if city == to_publish_tuple.id or city == 'all':
                 pipeline = ExtractPipeline(to_publish_tuple, feeds, download_date=download_date_override)
                 try:
-                    if cmd == "import_raw":
+                    if command == "import_raw":
                         pipeline.import_original_feeds_into_raw_db()
-                    elif cmd == "full":
+                    elif command == "full":
                         pipeline.run_full_without_deploy()
-                    elif cmd == "licenses":
+                    elif command == "licenses":
                         pipeline._create_license_files()
-                    elif cmd == "thumbnail":
+                    elif command == "thumbnail":
                         pipeline.create_thumbnail_for_web()
-                    elif cmd == "deploy_to_server":
+                    elif command == "deploy_to_server":
                         pipeline.assert_contents_exist()
                         pipeline.create_zip()
                         pipeline.deploy_to_transportnetorks_cs_aalto()
-                    elif cmd == "clear":
+                    elif command == "clear":
                         pipeline.clear()
-                    elif cmd == "stats":
+                    elif command == "stats":
                         pipeline._write_stats()
-                    elif cmd == "clean":
+                    elif command == "clean":
                         pipeline.remove_temporary_files()
-                    elif cmd == "clear_main":
+                    elif command == "clear_main":
                         pipeline.clear()
                         pipeline._create_raw_db()
                         pipeline._main_db_extract()
-                    elif cmd == "extract_start_date":
+                    elif command == "extract_start_date":
                         pipeline.plot_weekly_extract_start_and_download_dates()
+                    elif command == "notes":
+                        pipeline._write_city_notes()
                 except Exception as e:
-                    print("(Probably) the ExtractPipeline object could not be created for city",
-                          to_publish_tuple.id, to_publish_tuple.download_date, " :")
+                    print("Something went wrong when trying to run the ExtractPipeline with ",
+                          to_publish_tuple.id, to_publish_tuple.download_date, command, " :")
                     print(e)
                     import traceback
                     # pipeline._write_main_db_warnings(extra_str=str(e) + "\n ")
-                    print(cmd + " for ", to_publish_tuple.id, " failed")
+                    print(command + " for ", to_publish_tuple.id, " failed")
                     print('=' * 40)
                     traceback.print_exc()
                     print('=' * 40)
@@ -282,9 +286,24 @@ class ExtractPipeline(object):
 
     @flushed
     def _write_city_notes(self):
-        notes_str = CITY_ID_TO_NOTES_STR[self.city_id]
         with open(self.notes_fname, 'w') as f:
-            f.write(notes_str)
+            to_write_str = "Original data downloaded on " + self.download_date + " from:\n"
+            for feed in self.feeds:
+                data = yaml.load(open("../gtfs-sources.yaml"))
+                url = data['sites'][feed]['gtfs']
+                if isinstance(url, dict):
+                    for subfeed, path_to_gtfs in url.items():
+                        to_write_str +=  "    " + feed + "," + subfeed + ": " + path_to_gtfs + "\n"
+                else:
+                    to_write_str += "    " + feed + ": " + url + "\n"
+
+            G = GTFS(self.week_db_path)
+            timezone_name = G.get_timezone_name()
+            timezone_str = G.get_timezone_string()
+            to_write_str += "Extract timezone: " + timezone_name + " (" +timezone_str + ")\n"
+            to_write_str += CITY_ID_TO_NOTES_STR[self.city_id]
+            print(to_write_str)
+            f.write(to_write_str)
 
     @flushed
     def _add_city_name_to_week_gtfs_db(self):
