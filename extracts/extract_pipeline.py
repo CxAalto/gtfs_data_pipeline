@@ -351,13 +351,13 @@ class ExtractPipeline(object):
             vehicle_kilometers_per_section.append(data['n_vehicles'] * data['d'] / 1000.)
         stats = {"n_stops": len(G.stops()),
                  "n_connections": len(G.get_transit_events()),
-                 "buffer_center_lat": self.lat,
-                 "buffer_center_lon": self.lon,
-                 "buffer_radius_km": self.buffer_distance,
                  "n_links": n_links,
                  "network_length_m": sum(section_lengths),
                  "link_distance_avg_m": int(sum(section_lengths) / len(section_lengths)),
                  "vehicle_kilometers": sum(vehicle_kilometers_per_section),
+                 "buffer_center_lat": self.lat,
+                 "buffer_center_lon": self.lon,
+                 "buffer_radius_km": self.buffer_distance,
                  "extract_start_date": self.__get_weekly_extract_start_date().strftime("%Y-%m-%d")
                  }
         self.__verify_stats(stats)
@@ -373,10 +373,9 @@ class ExtractPipeline(object):
             "network_length_m": int, # The sum of all links' (excluding walk) great circle distances, expressed in meters. \\
             "link_distance_avg_m": int,
             "vehicle_kilometers": float,
-            "area_km2": float,     # Surface are of the extract, measured as the area of the convex hull of the PT stops. \\
-            "diameter_km": float,  # Diameter: that was used in filtering"
-            "center_lat": float,   # Latitude used for the center of filtering
-            "center_lon": float,    # Longitude used for the center of filtering
+            "buffer_radius_km": (int, float),
+            "buffer_center_lat": float,   # Latitude used for the center of filtering
+            "buffer_center_lon": float,    # Longitude used for the center of filtering
             "extract_start_date": str
         }
         for key, key_type in keys_to_type.items():
