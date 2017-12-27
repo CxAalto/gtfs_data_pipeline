@@ -45,7 +45,7 @@ except:
             trip_counts_per_day = day_G.get_trip_counts_per_day()
             assert len(trip_counts_per_day) == 1
             city_data_dict["Extract date"] = trip_counts_per_day.iloc[0]['date']
-            city_data_dict["n_stops"] = len(day_G.stops())
+            city_data_dict["n_stops"] = len(day_G.stops(require_reference_in_stop_times=True))
             city_data_dict["n_connections"] = len(day_G.get_transit_events())
             n_links = len(combined_stop_to_stop_transit_network(day_G).edges(data=True))
             city_data_dict["n_links"] = int(n_links)
