@@ -10,8 +10,8 @@ import yaml
 
 from feed_manager import FeedManager
 from gtfspy import exports, filter, import_validator, timetable_validator, util
-from gtfspy.geometry import get_approximate_convex_hull_area_km2
 from gtfspy.gtfs import GTFS
+from gtfspy.aggregate_stops import aggregate_stops_spatially
 from gtfspy.networks import combined_stop_to_stop_transit_network
 from licenses.adapt_licenses import create_license_files
 from read_to_publish_csv import to_publish_generator
@@ -254,6 +254,7 @@ class ExtractPipeline(object):
     @flushed
     def _create_raw_db(self):
         self.import_original_feeds_into_raw_db()
+        self._aggregate_stops_with_same_location()
         self._correct_coordinates_for_raw_db()
         self._correct_arrival_times_for_raw_db()
         self._validate_raw_db_and_write_warnings()
@@ -419,6 +420,11 @@ class ExtractPipeline(object):
         else:
             print("Feed already imported, proceeding ...")
         return SUCCESS
+
+    @flushed
+    def _aggregate_stops_with_same_location(self):
+        G = GTFS(self.raw_db_path)
+        aggregate_stops_spatially(G, threshold_meters=1)
 
     @flushed
     def _main_db_extract(self):
