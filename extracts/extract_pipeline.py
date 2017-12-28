@@ -254,10 +254,10 @@ class ExtractPipeline(object):
     @flushed
     def _create_raw_db(self):
         self.import_original_feeds_into_raw_db()
-        self._aggregate_stops_with_same_location()
         self._correct_coordinates_for_raw_db()
         self._correct_arrival_times_for_raw_db()
         self._validate_raw_db_and_write_warnings()
+        self._aggregate_stops_with_same_location()
 
     @flushed
     def _create_data_extracts(self):
