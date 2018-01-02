@@ -368,7 +368,7 @@ class ExtractPipeline(object):
         vehicle_kilometers_per_section = []
         for from_I, to_I, data in sections:
             section_lengths.append(data['attr_dict']['d'])
-            vehicle_kilometers_per_section.append(data['n_vehicles'] * data['attr_dict']['d'] / 1000.)
+            vehicle_kilometers_per_section.append(data['attr_dict']['n_vehicles'] * data['attr_dict']['d'] / 1000.)
 
         stats = {"n_stops": len(G.stops(require_reference_in_stop_times=True)),
                  "n_connections": len(G.get_transit_events()),
