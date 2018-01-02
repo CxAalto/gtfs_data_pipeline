@@ -73,7 +73,7 @@ with open(fname_stats, "w") as f:
     print(fname_stats)
     pandas.DataFrame(cities).to_latex(
         buf=f,
-        formatters={"n_links": spaces, "n_connections": spaces, "n_links": spaces},
+        formatters={"n_stops": spaces, "n_connections": spaces, "n_links": spaces},
         index=False,
         columns=["City", "Country", "n_stops", "n_links", "n_connections", "License"],
         float_format='%.0f'
