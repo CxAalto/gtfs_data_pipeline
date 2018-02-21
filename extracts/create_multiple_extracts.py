@@ -13,21 +13,16 @@ ALL_CITIES = ["adelaide", "antofagasta", "athens", "belfast",
               "nantes", "palermo", "prague", "paris", "rennes", "rome", "sydney",
               "toulouse", "turku", "venice", "winnipeg", "helsinki"]
 
-# "valencia", "valparaiso" were excluded as their data contained missing stop_times entries
-# With some effort they could be added, though.
-
 def main():
-    # cities_to_import = [city for city in all_cities if city not in cities_to_neglect]
 
-    # start_from = "adelaide"
-    # cities_to_import = ALL_CITIES[ALL_CITIES.index(start_from):]
+    cities_to_import = ALL_CITIES
+    buffer_by_line = True
     
-    commands = ["clear", "full"] # , "extract_start_date"] # copy_from_hammer"] # "extract_start_date"]  # "clear", "full"]
-    cities_to_import = ["helsinki"] # ALL_CITIES
+    commands = ["clear", "full", "thumbnail", "deploy_to_server"]
 
     print("Cities to import: ", cities_to_import)
     print("Commands to run: " , commands)
-    buffer_by_line = 1
+
     for command in commands:
         logfile_path = get_logfile_base(command)
         for city_id in cities_to_import:
