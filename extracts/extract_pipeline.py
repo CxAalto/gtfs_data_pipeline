@@ -41,6 +41,7 @@ matplotlib.use("agg")
 AVAILABLE_COMMANDS = ['full',
                       "thumbnail",
                       "licenses",
+                      "create_networks",
                       "clear",
                       "deploy_to_server",
                       "copy_from_hammer",
@@ -105,6 +106,8 @@ def main():
                         pipeline.clear()
                         pipeline._create_raw_db()
                         pipeline._main_db_extract()
+                    elif command == "create_networks":
+                        pipeline._create_network_extracts()
                     elif command == "extract_start_date":
                         pipeline.plot_weekly_extract_start_and_download_dates()
                     elif command == "notes":
@@ -623,7 +626,7 @@ class ExtractPipeline(object):
         print('overlap start date: ' + overlapping_start_date + ' , overlap end date: ' + overlapping_end_date)
         return overlapping_start_date, overlapping_end_date
 
-    def plot_weekly_extract_start_and_download_dates(self):
+    def plot_weekly_extract_start_and_download_dates(self, given_axes=None):
         main_G = GTFS(self.main_db_path)
         assert isinstance(main_G, GTFS)
         day_extract_date_start = self.__get_weekly_extract_start_date()
@@ -631,11 +634,16 @@ class ExtractPipeline(object):
         print("Download date: " + str(self.download_date))
         from gtfspy.plots import plot_trip_counts_per_day
         ax = plot_trip_counts_per_day(main_G,
-                                        highlight_dates=[day_extract_date_start, self.download_date],
-                                        highlight_date_labels=["Extract date start", "Download date"])
-        ax.set_title(self.city_id)
-        ax.figure.savefig(self.weekly_extract_dates_plot_fname)
-        print("saved figure to " + self.weekly_extract_dates_plot_fname)
+                                      highlight_dates=[day_extract_date_start, self.download_date],
+                                      highlight_date_labels=["Week extract start date", "Source data download date"],
+                                      ax=given_axes)
+        ax.set_title(self.city_id.capitalize())
+        ax.set_ylim([0, ax.get_ylim()[1] * 1.1])
+        if given_axes:
+            return ax.figure, ax
+        else:
+            ax.figure.savefig(self.weekly_extract_dates_plot_fname)
+            print("saved figure to " + self.weekly_extract_dates_plot_fname)
 
     @flushed
     def __create_temporal_extract_from_main_db(self, days, output_db_path):
