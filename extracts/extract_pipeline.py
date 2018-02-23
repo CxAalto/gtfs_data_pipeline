@@ -49,7 +49,8 @@ AVAILABLE_COMMANDS = ['full',
                       "clear_main",
                       "stats",
                       "extract_start_date",
-                      "notes"]
+                      "notes",
+                      "extracts"]
 
 SUCCESS = True
 
@@ -108,6 +109,8 @@ def main():
                         pipeline._main_db_extract()
                     elif command == "create_networks":
                         pipeline._create_network_extracts()
+                    elif command == "extracts":
+                        pipeline._create_data_extracts()
                     elif command == "extract_start_date":
                         pipeline.plot_weekly_extract_start_and_download_dates()
                     elif command == "notes":
@@ -187,7 +190,8 @@ class ExtractPipeline(object):
 
         self.week_gtfs_path = os.path.join(self.output_directory, "week." + GTFS_ZIPFILE_BASENAME)
 
-        self.temporal_network_fname = os.path.join(self.output_directory, "network_temporal.csv")
+        self.temporal_network_fname = os.path.join(self.output_directory, "network_temporal_day.csv")
+        self.temporal_network_week_fname = os.path.join(self.output_directory, "network_temporal_week.csv")
         self.network_node_info_fname = os.path.join(self.output_directory, "network_nodes.csv")
         self.network_combined_fname = os.path.join(self.output_directory, "network_combined.csv")
 
@@ -267,6 +271,7 @@ class ExtractPipeline(object):
         self._create_week_db_extract()
         self._validate_week_db_and_write_warnings()
         self._create_day_db_extract()
+        self._network_temporal_from_week_db()
         self._create_gtfs_from_week_db()
         self._create_network_extracts()
         self._create_geojson_extracts()
@@ -370,8 +375,8 @@ class ExtractPipeline(object):
         section_lengths = []
         vehicle_kilometers_per_section = []
         for from_I, to_I, data in sections:
-            section_lengths.append(data['attr_dict']['d'])
-            vehicle_kilometers_per_section.append(data['attr_dict']['n_vehicles'] * data['attr_dict']['d'] / 1000.)
+            section_lengths.append(data['d'])
+            vehicle_kilometers_per_section.append(data['n_vehicles'] * data['d'] / 1000.)
 
         stats = {"n_stops": len(G.stops(require_reference_in_stop_times=True)),
                  "n_connections": len(G.get_transit_events()),
@@ -436,21 +441,21 @@ class ExtractPipeline(object):
         Filter the raw database spatially (according to initialization parameters)
         and consider also
         """
-        if not os.path.isfile(self.main_db_path):
-            start_date, end_date = self.find_overlapping_calendar_span()
-            print("Producing main extract")
-            fe = filter.FilterExtract(
-                GTFS(self.raw_db_path),
-                self.main_db_path,
-                buffer_distance_km=self.buffer_distance,
-                buffer_lat=self.lat,
-                buffer_lon=self.lon,
-                update_metadata=True,
-                start_date=start_date,
-                end_date=end_date)
-            fe.create_filtered_copy()
-        else:
-            print("Main filtered extract already created, proceeding ...")
+        if os.path.isfile(self.main_db_path):
+            os.remove(self.main_db_path)
+
+        start_date, end_date = self.find_overlapping_calendar_span()
+        print("Producing main extract")
+        fe = filter.FilterExtract(
+            GTFS(self.raw_db_path),
+            self.main_db_path,
+            buffer_distance_km=self.buffer_distance,
+            buffer_lat=self.lat,
+            buffer_lon=self.lon,
+            update_metadata=True,
+            start_date=start_date,
+            end_date=end_date)
+        fe.create_filtered_copy()
 
     @flushed
     def _create_day_db_extract(self):
@@ -479,6 +484,11 @@ class ExtractPipeline(object):
     @flushed
     def _network_temporal_from_day_db(self):
         exports.write_temporal_network(GTFS(self.day_db_path), self.temporal_network_fname)
+
+    @flushed
+    def _network_temporal_from_week_db(self):
+        exports.write_temporal_network(GTFS(self.week_db_path), self.temporal_network_week_fname)
+
 
     @flushed
     def _validate_raw_db_and_write_warnings(self):
@@ -647,20 +657,19 @@ class ExtractPipeline(object):
 
     @flushed
     def __create_temporal_extract_from_main_db(self, days, output_db_path):
-        if not os.path.isfile(output_db_path):
-            main_G = GTFS(self.main_db_path)
-            assert isinstance(main_G, GTFS)
-            day_extract_date_start = self.__get_weekly_extract_start_date()
-            end_date_exclusive = day_extract_date_start + datetime.timedelta(days)
-            print("Creating file " + output_db_path + " ...")
-            fe = filter.FilterExtract(main_G,
-                                      output_db_path,
-                                      update_metadata=True,
-                                      start_date=day_extract_date_start,  # inclusive
-                                      end_date=end_date_exclusive)  # exclusive
-            fe.create_filtered_copy()
-        else:
-            print("File " + output_db_path + " already exists, proceeding....")
+        if os.path.isfile(output_db_path):
+            os.remove(output_db_path)
+        main_G = GTFS(self.main_db_path)
+        assert isinstance(main_G, GTFS)
+        day_extract_date_start = self.__get_weekly_extract_start_date()
+        start_date_ut = main_G.get_day_start_ut(day_extract_date_start)
+        three_am_seconds = 3 * 3600
+        fe = filter.FilterExtract(main_G,
+                                  output_db_path,
+                                  update_metadata=True,
+                                  trip_earliest_start_time_ut=start_date_ut + three_am_seconds,  # inclusive
+                                  trip_latest_start_time_ut=start_date_ut + three_am_seconds + days * 24 * 3600)  # exclusive
+        fe.create_filtered_copy()
 
     def __get_weekly_extract_start_date(self):
         """
