@@ -298,6 +298,7 @@ class ExtractPipeline(object):
         with open(self.notes_fname, 'w') as f:
             to_write_str = "Original data downloaded on " + self.download_date + " from:\n"
             for feed in self.feeds:
+                feed = str(feed).replace("_manually_expanded_gtfs", "")
                 data = yaml.load(open("../gtfs-sources.yaml"))
                 url = data['sites'][feed]['gtfs']
                 if isinstance(url, dict):
