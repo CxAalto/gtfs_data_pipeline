@@ -4,6 +4,7 @@ import subprocess
 import sys
 from os import listdir
 from zipfile import ZipFile
+import zipfile
 
 import pandas
 import yaml
@@ -34,8 +35,8 @@ See ExtractPipeline.run_full_without_deploy for details on what is done.
 """
 
 import matplotlib
-matplotlib.use("agg")
-# matplotlib.use("TkAgg") use this if interactive stuff wanted
+#matplotlib.use("agg")
+matplotlib.use("TkAgg") # use this if interactive visualizations are wanted
 
 
 AVAILABLE_COMMANDS = ['full',
@@ -335,7 +336,8 @@ class ExtractPipeline(object):
                           "sections.geojson",
                           "stops.geojson",
                           "week.sqlite",
-                          "network_temporal.csv",
+                          "network_temporal_day.csv",
+                          "network_temporal_week.csv",
                           "routes.geojson",
                           "stats.csv",
                           "week.gtfs.zip",
@@ -388,7 +390,7 @@ class ExtractPipeline(object):
                  "buffer_center_lat": self.lat,
                  "buffer_center_lon": self.lon,
                  "buffer_radius_km": self.buffer_distance,
-                 "extract_start_date": self.__get_weekly_extract_start_date().strftime("%Y-%m-%d")
+                 "extract_start_date": self.get_weekly_extract_start_date().strftime("%Y-%m-%d")
                  }
         self.__verify_stats(stats)
         df = pandas.DataFrame.from_dict({key:[value] for key, value in stats.items()})
@@ -576,8 +578,9 @@ class ExtractPipeline(object):
         self.assert_contents_exist(include_zip=False)
         if os.path.exists(self.zip_file_name):
             os.remove(self.zip_file_name)
-        all_files = [os.path.join(self.output_directory, f) for f in listdir(self.output_directory) if ExtractPipeline.TEMP_FILE_PREFIX not in f]
-        with ZipFile(self.zip_file_name, 'w') as cityzip:
+        all_files = [os.path.join(self.output_directory, f) for f in listdir(self.output_directory)
+                     if (((ExtractPipeline.TEMP_FILE_PREFIX not in f) and ("network_temporal.csv" not in f) and ("tmp-" not in f) and ("warnings" not in f)) or "week_db_timetable_warnings_summary.log" in f)]
+        with ZipFile(self.zip_file_name, 'w', compression=zipfile.ZIP_DEFLATED) as cityzip:
             for path_to_file in all_files:
                 print(path_to_file)
                 cityzip.write(path_to_file, self.city_id + "/" + os.path.basename(path_to_file))
@@ -640,7 +643,7 @@ class ExtractPipeline(object):
     def plot_weekly_extract_start_and_download_dates(self, given_axes=None):
         main_G = GTFS(self.main_db_path)
         assert isinstance(main_G, GTFS)
-        day_extract_date_start = self.__get_weekly_extract_start_date()
+        day_extract_date_start = self.get_weekly_extract_start_date()
         print("Weekly extract start date: " + str(day_extract_date_start))
         print("Download date: " + str(self.download_date))
         from gtfspy.plots import plot_trip_counts_per_day
@@ -662,7 +665,7 @@ class ExtractPipeline(object):
             os.remove(output_db_path)
         main_G = GTFS(self.main_db_path)
         assert isinstance(main_G, GTFS)
-        day_extract_date_start = self.__get_weekly_extract_start_date()
+        day_extract_date_start = self.get_weekly_extract_start_date()
         start_date_ut = main_G.get_day_start_ut(day_extract_date_start)
         three_am_seconds = 3 * 3600
         fe = filter.FilterExtract(main_G,
@@ -672,7 +675,7 @@ class ExtractPipeline(object):
                                   trip_latest_start_time_ut=start_date_ut + three_am_seconds + days * 24 * 3600)  # exclusive
         fe.create_filtered_copy()
 
-    def __get_weekly_extract_start_date(self):
+    def get_weekly_extract_start_date(self):
         """
         Returns
         -------

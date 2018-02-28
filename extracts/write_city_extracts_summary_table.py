@@ -16,7 +16,7 @@ pickle_cache_file = os.path.join(TO_PUBLISH_ROOT_OUTPUT_DIR,"_latex_summary_tabl
 
 try:
     print("Trying to fetch city data from cache...")
-    # assert False
+    assert False
     cities = pickle.load(open(pickle_cache_file, 'rb'))
     print("It worked!")
 except:
@@ -43,8 +43,10 @@ except:
         try:
             day_G = GTFS(pipeline.day_db_path)
             trip_counts_per_day = day_G.get_trip_counts_per_day()
-            assert len(trip_counts_per_day) == 1
-            city_data_dict["Extract date"] = trip_counts_per_day.iloc[0]['date']
+            print(trip_counts_per_day)
+            assert len(trip_counts_per_day) <= 3
+            city_data_dict["Extract date"] = str(trip_counts_per_day.loc[trip_counts_per_day['trip_counts'] == max(trip_counts_per_day['trip_counts'])].iloc[0]['date'])
+            print(city_data_dict["Extract date"].replace(" 00:00:00", ""))
             city_data_dict["n_stops"] = len(day_G.stops(require_reference_in_stop_times=True))
             city_data_dict["n_connections"] = len(day_G.get_transit_events())
             n_links = len(combined_stop_to_stop_transit_network(day_G).edges(data=True))

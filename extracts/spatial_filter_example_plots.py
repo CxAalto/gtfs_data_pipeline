@@ -37,7 +37,6 @@ spatial_bounds['lon_max'] += offset_lon
 spatial_bounds['lon_min'] -= offset_lon
 
 
-
 # plot merged data without any filtering
 raw_G = GTFS(pipeline.raw_db_path)
 plot_route_network_from_gtfs(raw_G, map_style="dark_all", ax=ax1)
