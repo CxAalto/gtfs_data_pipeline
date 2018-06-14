@@ -2,9 +2,9 @@
 
 #### Main
 
-- `create_multiple_extracts.py`:
+- `create_multiple_extracts.py:
     The main script used for importing and deploying a city to transportnetworks.cs.aalto.fi
-- `settings.py':
+- `settings.py`:
     Various settings related to data storage etc.
 
 
