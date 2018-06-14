@@ -4,9 +4,11 @@
 
 - `create_multiple_extracts.py`:
     The main script used for importing and deploying a city to transportnetworks.cs.aalto.fi
+- `settings.py':
+    Various settings related to data storage etc.
 
 
-#### Core
+#### Core parts
 - `extract_pipeline.py`:
     Code for steering the import pipeline for one city. 
 - `feed_manager.py`:
@@ -17,5 +19,4 @@
     Information on various input and output file paths.
 - `licenses/`:
     Code and material for documenting the licensing terms of each fed.
-
 
