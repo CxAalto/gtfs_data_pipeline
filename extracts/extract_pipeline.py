@@ -40,6 +40,7 @@ matplotlib.use("TkAgg") # use this if interactive visualizations are wanted
 
 
 AVAILABLE_COMMANDS = ['full',
+                      "gtfs_only",
                       "thumbnail",
                       "licenses",
                       "create_networks",
@@ -54,6 +55,7 @@ AVAILABLE_COMMANDS = ['full',
                       "extracts"]
 
 SUCCESS = True
+
 
 def main():
     try:
@@ -82,14 +84,18 @@ def main():
     elif command in AVAILABLE_COMMANDS:
         city = param1
         download_date_override = param2
+        city_found = False
         for to_publish_tuple, feeds in to_publish_generator():
             if city == to_publish_tuple.id or city == 'all':
+                city_found = True
                 pipeline = ExtractPipeline(to_publish_tuple, feeds, download_date=download_date_override)
                 try:
                     if command == "import_raw":
                         pipeline.import_original_feeds_into_raw_db()
                     elif command == "full":
                         pipeline.run_full_without_deploy()
+                    elif command == "gtfs_only":
+                        pipeline.run_gtfs_extract_only()
                     elif command == "licenses":
                         pipeline._create_license_files()
                     elif command == "thumbnail":
@@ -127,9 +133,13 @@ def main():
                     traceback.print_exc()
                     print('=' * 40)
                     print("Log file written in: " + pipeline.log_fname)
+
+        if not city_found:
+            print(city, " not found")
     else:
         print("Example usage: extract_pipeline.py full detroit")
         print("Available commands:" + ",".join(AVAILABLE_COMMANDS))
+
 
 
 def flushed(method):
@@ -260,6 +270,20 @@ class ExtractPipeline(object):
         self.create_thumbnail_for_web()
 
     @flushed
+    def run_gtfs_extract_only(self):
+        """
+        This function orchestrates a limited import process.
+        """
+        self._create_raw_db()
+        self._main_db_extract()
+        self._write_main_db_validation_warnings()
+        #self._create_data_extracts_limited()
+        self._create_week_db_extract()
+        self._add_city_name_to_week_gtfs_db()
+        self._validate_week_db_and_write_warnings()
+        self._create_day_db_extract()
+
+    @flushed
     def _create_raw_db(self):
         self.import_original_feeds_into_raw_db()
         self._correct_coordinates_for_raw_db()
@@ -377,7 +401,9 @@ class ExtractPipeline(object):
         n_links = len(sections)
         section_lengths = []
         vehicle_kilometers_per_section = []
+
         for from_I, to_I, data in sections:
+            data = data['attr_dict']
             section_lengths.append(data['d'])
             vehicle_kilometers_per_section.append(data['n_vehicles'] * data['d'] / 1000.)
 
@@ -426,7 +452,7 @@ class ExtractPipeline(object):
         if not os.path.isfile(self.raw_db_path):
             subfeed_paths = self._get_subfeed_paths()
             print("Importing feeds " + " ".join(subfeed_paths))
-            command = ' '.join(['python', '../../gtfspy/gtfspy/import_gtfs.py', 'import-multiple', ' '.join(subfeed_paths),
+            command = ' '.join(['python3', '../../gtfspy/gtfspy/import_gtfs.py', 'import-multiple', ' '.join(subfeed_paths),
                                 self.raw_db_path])
             subprocess.run(command, shell=True, check=True)
         else:
