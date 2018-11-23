@@ -52,7 +52,8 @@ AVAILABLE_COMMANDS = ['full',
                       "stats",
                       "extract_start_date",
                       "notes",
-                      "extracts"]
+                      "extracts",
+                      "week_only"]
 
 SUCCESS = True
 
@@ -88,7 +89,7 @@ def main():
         for to_publish_tuple, feeds in to_publish_generator():
             if city == to_publish_tuple.id or city == 'all':
                 city_found = True
-                pipeline = ExtractPipeline(to_publish_tuple, feeds, download_date=download_date_override)
+                pipeline = ExtractPipeline(to_publish_tuple, feeds, download_date=download_date_override, use_max_week=False)
                 try:
                     if command == "import_raw":
                         pipeline.import_original_feeds_into_raw_db()
@@ -96,6 +97,10 @@ def main():
                         pipeline.run_full_without_deploy()
                     elif command == "gtfs_only":
                         pipeline.run_gtfs_extract_only()
+                        pipeline.plot_weekly_extract_start_and_download_dates()
+                    elif command == "week_only":
+                        pipeline.run_week_extract_only()
+                        pipeline.plot_weekly_extract_start_and_download_dates()
                     elif command == "licenses":
                         pipeline._create_license_files()
                     elif command == "thumbnail":
@@ -141,7 +146,6 @@ def main():
         print("Available commands:" + ",".join(AVAILABLE_COMMANDS))
 
 
-
 def flushed(method):
     def _flushed(*args, **kw):
         print("Starting " + method.__name__)
@@ -157,7 +161,7 @@ class ExtractPipeline(object):
     TEMP_FILE_PREFIX = "temporary_file_"
 
     def __init__(self, city_publish_tuple, feeds=None,
-                 download_date=None):
+                 download_date=None, use_max_week=False):
         # print(city_publish_tuple, feeds, download_date)
 
         # Feed parameters
@@ -171,6 +175,7 @@ class ExtractPipeline(object):
 
         self.buffer_distance = float(city_publish_tuple.buffer)
         self.name = city_publish_tuple.name
+        self.use_max_week = use_max_week
 
         if not download_date:
             if city_publish_tuple.download_date:
@@ -281,7 +286,15 @@ class ExtractPipeline(object):
         self._create_week_db_extract()
         self._add_city_name_to_week_gtfs_db()
         self._validate_week_db_and_write_warnings()
-        self._create_day_db_extract()
+
+    @flushed
+    def run_week_extract_only(self):
+        """
+        This function orchestrates a limited import process.
+        """
+        self._create_week_db_extract()
+        self._add_city_name_to_week_gtfs_db()
+        self._validate_week_db_and_write_warnings()
 
     @flushed
     def _create_raw_db(self):
@@ -416,7 +429,7 @@ class ExtractPipeline(object):
                  "buffer_center_lat": self.lat,
                  "buffer_center_lon": self.lon,
                  "buffer_radius_km": self.buffer_distance,
-                 "extract_start_date": self.get_weekly_extract_start_date().strftime("%Y-%m-%d")
+                 "extract_start_date": self.get_weekly_extract_start_date(use_max_week=self.use_max_week).strftime("%Y-%m-%d")
                  }
         self.__verify_stats(stats)
         df = pandas.DataFrame.from_dict({key:[value] for key, value in stats.items()})
@@ -669,7 +682,8 @@ class ExtractPipeline(object):
     def plot_weekly_extract_start_and_download_dates(self, given_axes=None):
         main_G = GTFS(self.main_db_path)
         assert isinstance(main_G, GTFS)
-        day_extract_date_start = self.get_weekly_extract_start_date()
+        main_G.get_weekly_extract_start_date_based_on_max_week()
+        day_extract_date_start = self.get_weekly_extract_start_date(use_max_week=self.use_max_week)
         print("Weekly extract start date: " + str(day_extract_date_start))
         print("Download date: " + str(self.download_date))
         from gtfspy.plots import plot_trip_counts_per_day
@@ -687,21 +701,25 @@ class ExtractPipeline(object):
 
     @flushed
     def __create_temporal_extract_from_main_db(self, days, output_db_path):
+        from gtfspy.util import ut_to_utc_datetime
         if os.path.isfile(output_db_path):
             os.remove(output_db_path)
         main_G = GTFS(self.main_db_path)
         assert isinstance(main_G, GTFS)
-        day_extract_date_start = self.get_weekly_extract_start_date()
+        day_extract_date_start = self.get_weekly_extract_start_date(use_max_week=self.use_max_week)
         start_date_ut = main_G.get_day_start_ut(day_extract_date_start)
         three_am_seconds = 3 * 3600
+        print(start_date_ut)
         fe = filter.FilterExtract(main_G,
                                   output_db_path,
                                   update_metadata=True,
-                                  trip_earliest_start_time_ut=start_date_ut + three_am_seconds,  # inclusive
-                                  trip_latest_start_time_ut=start_date_ut + three_am_seconds + days * 24 * 3600)  # exclusive
+                                  start_date=ut_to_utc_datetime(start_date_ut + three_am_seconds, main_G.get_timezone_pytz()),
+                                  end_date=ut_to_utc_datetime(start_date_ut + three_am_seconds + days * 24 * 3600, main_G.get_timezone_pytz()))
+                                  #trip_earliest_start_time_ut=start_date_ut + three_am_seconds,  # inclusive
+                                  #trip_latest_start_time_ut=start_date_ut + three_am_seconds + days * 24 * 3600)  # exclusive
         fe.create_filtered_copy()
 
-    def get_weekly_extract_start_date(self):
+    def get_weekly_extract_start_date(self, use_max_week=False):
         """
         Returns
         -------
@@ -716,7 +734,10 @@ class ExtractPipeline(object):
             main_G = GTFS(self.main_db_path)
             print("Automatically computed based on database")
             assert isinstance(main_G, GTFS)
-            day_extract_date_start = main_G.get_weekly_extract_start_date()
+            if use_max_week:
+                day_extract_date_start = main_G.get_weekly_extract_start_date_based_on_max_week()
+            else:
+                day_extract_date_start = main_G.get_weekly_extract_start_date()
             return day_extract_date_start
 
 if __name__ == "__main__":
