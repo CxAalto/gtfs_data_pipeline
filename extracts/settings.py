@@ -6,7 +6,7 @@ COUNTRY_FEED_LIST = ['denmark', 'sweden', 'finland-matka', 'belgium', 'switzerla
 
 __THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 
-RAW_DATA_DIR = os.path.join(__THIS_DIR, "../../scratch/rawgtfs/")
+RAW_DATA_DIR = os.path.normpath(os.path.join(__THIS_DIR, "../../scratch/rawgtfs/"))
 assert os.path.exists(RAW_DATA_DIR)
 ALL_RAW_GTFS_DIRS = []
 TO_PUBLISH_ROOT_OUTPUT_DIR = os.path.join("/home/clepe/route_diversity/data/cities")
