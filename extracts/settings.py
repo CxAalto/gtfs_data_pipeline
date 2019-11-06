@@ -1,5 +1,6 @@
 import os
 from gtfspy import util
+from research.route_diversity.diversity_settings import string_to_add
 
 
 COUNTRY_FEED_LIST = ['denmark', 'sweden', 'finland-matka', 'belgium', 'switzerland', 'israel', 'netherlands', 'norway']
@@ -14,7 +15,7 @@ TO_PUBLISH_ROOT_OUTPUT_DIR = os.path.join("/home/clepe/route_diversity/data/citi
 
 # TO_PUBLISH_ROOT_OUTPUT_DIR = os.path.join(__THIS_DIR, "copies_from_hammer/")
 COUNTRY_FEEDS_DIR = os.path.join(__THIS_DIR, "../../scratch/country_feeds_for_publish")
-PATH_TO_PUBLISH_CSV = os.path.join("/home/clepe/transit/research/route_diversity/diversity_to_publish.csv")
+PATH_TO_PUBLISH_CSV = os.path.join("/home/clepe/transit/research/route_diversity/", string_to_add + "diversity_to_publish.csv")
 #COORDINATE_CORRECTIONS_CSV = os.path.join("/home/clepe/transit/research/route_diversity/diversity_to_publish.csv")
 SQLITE_ENDING = ".sqlite"
 

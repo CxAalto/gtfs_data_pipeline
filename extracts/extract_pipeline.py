@@ -87,6 +87,7 @@ def main():
         download_date_override = param2
         city_found = False
         for to_publish_tuple, feeds in to_publish_generator():
+            print(feeds)
             if city == to_publish_tuple.id or city == 'all':
                 city_found = True
                 pipeline = ExtractPipeline(to_publish_tuple, feeds, download_date=download_date_override, use_max_week=False)
