@@ -12,7 +12,7 @@ from create_multiple_extracts import ALL_CITIES
 from extract_pipeline import ExtractPipeline
 from gtfspy.gtfs import GTFS
 from gtfspy.mapviz import plot_route_network_from_gtfs
-from read_to_publish_csv import get_to_publish_csv, get_feeds_from_to_publish_tuple
+from read_to_publish_csv import get_to_publish_df, get_feeds_from_to_publish_tuple
 from settings import TO_PUBLISH_ROOT_OUTPUT_DIR
 
 FIG_PATH_DIR = os.path.join(TO_PUBLISH_ROOT_OUTPUT_DIR, "full_route_map_images/")
@@ -29,7 +29,7 @@ def plot_city_figs(cities=None, axes=None, save_figure=True):
             fig = plt.figure(figsize=(6.,4.))
             ax = fig.add_subplot(111)
             fig.subplots_adjust(left=0.0, right=1.0, top=1.0, bottom=0.0)
-        to_publish_csv = get_to_publish_csv()
+        to_publish_csv = get_to_publish_df()
         city_data = to_publish_csv[to_publish_csv["id"] == city].iloc[0]
         feeds = get_feeds_from_to_publish_tuple(city_data)
         pipeline = ExtractPipeline(city_data, feeds)
@@ -52,7 +52,7 @@ def plot_overall_map(ax=None, save_figure=True):
 
     # Get coordinates of all cities, and plot them on a map.
     # Red dots on a whitish background should do?
-    to_publish_csv = get_to_publish_csv()
+    to_publish_csv = get_to_publish_df()
     cities_to_plot = to_publish_csv[to_publish_csv['id'].isin(ALL_CITIES)]
     lons = cities_to_plot['lon'].values
     lats = cities_to_plot['lat'].values

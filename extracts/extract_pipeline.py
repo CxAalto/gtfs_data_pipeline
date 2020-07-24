@@ -53,7 +53,8 @@ AVAILABLE_COMMANDS = ['full',
                       "extract_start_date",
                       "notes",
                       "extracts",
-                      "week_only"]
+                      "week_only",
+                      "create_main"]
 
 SUCCESS = True
 
@@ -87,8 +88,9 @@ def main():
         download_date_override = param2
         city_found = False
         for to_publish_tuple, feeds in to_publish_generator():
-            print(feeds)
+            #print(feeds)
             if city == to_publish_tuple.id or city == 'all':
+                print("importing: ", to_publish_tuple.id, " using feeds: ", feeds)
                 city_found = True
                 pipeline = ExtractPipeline(to_publish_tuple, feeds, download_date=download_date_override, use_max_week=False)
                 try:
@@ -119,6 +121,8 @@ def main():
                     elif command == "clear_main":
                         pipeline.clear()
                         pipeline._create_raw_db()
+                        pipeline._main_db_extract()
+                    elif command == "create_main":
                         pipeline._main_db_extract()
                     elif command == "create_networks":
                         pipeline._create_network_extracts()
@@ -199,7 +203,6 @@ class ExtractPipeline(object):
             self.raw_db_path = os.path.join(output_sub_dir_country, ExtractPipeline.TEMP_FILE_PREFIX + SQLITE_ENDING)
         else:
             self.raw_db_path = os.path.join(self.output_directory, ExtractPipeline.TEMP_FILE_PREFIX + SQLITE_ENDING)
-
 
         self.main_db_path = os.path.join(self.output_directory, ExtractPipeline.TEMP_FILE_PREFIX + "_main" + SQLITE_ENDING)
         self.week_db_path = os.path.join(self.output_directory, "week" + SQLITE_ENDING)
@@ -728,6 +731,7 @@ class ExtractPipeline(object):
         """
         print("Weekly extract start date")
         if isinstance(self.extract_start_date, str):
+            print(self.extract_start_date)
             assert(len(self.extract_start_date) == 10)
             print("Obtained from to_publish.csv")
             return datetime.datetime.strptime(self.extract_start_date, "%Y-%m-%d")

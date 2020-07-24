@@ -12,7 +12,7 @@ def to_publish_generator():
         with fields (id,Name,buffer,feeds,download_date,lon,lat)
     feeds: list
     """
-    to_publish_list = get_to_publish_csv()
+    to_publish_list = get_to_publish_df()
     for to_publish_tuple in to_publish_list.itertuples():
         # Which sub-feeds to publish?
         yield to_publish_tuple, get_feeds_from_to_publish_tuple(to_publish_tuple)
@@ -27,7 +27,7 @@ def get_feeds_from_to_publish_tuple(to_publish_tuple):
         return to_publish_tuple.feeds.split(";")
 
 
-def get_to_publish_csv():
+def get_to_publish_df():
     """
     Returns
     -------

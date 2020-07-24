@@ -1,7 +1,7 @@
 import os
 
 from extract_pipeline import ExtractPipeline
-from read_to_publish_csv import get_to_publish_csv, get_feeds_from_to_publish_tuple
+from read_to_publish_csv import get_to_publish_df, get_feeds_from_to_publish_tuple
 
 
 from matplotlib import pyplot as plt
@@ -19,7 +19,7 @@ ax2 = fig.add_subplot(132)
 ax3 = fig.add_subplot(133)
 fig.subplots_adjust(left=0.0, right=1.0, top=1.0, bottom=0.0)
 
-to_publish_csv = get_to_publish_csv()
+to_publish_csv = get_to_publish_df()
 city_data = to_publish_csv[to_publish_csv["id"] == example_city].iloc[0]
 feeds = get_feeds_from_to_publish_tuple(city_data)
 pipeline = ExtractPipeline(city_data, feeds)

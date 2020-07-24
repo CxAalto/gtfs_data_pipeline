@@ -11,6 +11,14 @@ RAW_DATA_DIR = os.path.normpath(os.path.join(__THIS_DIR, "../../scratch/rawgtfs/
 assert os.path.exists(RAW_DATA_DIR)
 ALL_RAW_GTFS_DIRS = []
 TO_PUBLISH_ROOT_OUTPUT_DIR = os.path.join("/home/clepe/route_diversity/data/cities")
+INTRO_ANALYSIS_DIR = os.path.join("/home/clepe/scratch/diversity_data/intro_analysis")
+INTRO_PICKLE = os.path.join(INTRO_ANALYSIS_DIR, "intro.pickle")
+MEASURES = ['number_of_route_variants', 'cross_route_ratio', 'route_length', 'route_section_length',
+                         'route_kilometrage', 'prop_length_peak', 'prop_section_length_peak', 'prop_kilometrage_peak',
+                         'avg_segment_frequency_peak', 'route_overlap_peak', 'prop_length_day',
+                         'prop_section_length_day', 'prop_kilometrage_day', 'avg_segment_frequency_day',
+                         'route_overlap_day', 'mean_jaccard', 'mean_service_hours', 'weighted_mean_service_hours',
+                         'long_service_hour_kms', 'long_service_hour_prop']
 # TO_PUBLISH_ROOT_OUTPUT_DIR = os.path.join(__THIS_DIR, "../../scratch/to_publish/")
 
 # TO_PUBLISH_ROOT_OUTPUT_DIR = os.path.join(__THIS_DIR, "copies_from_hammer/")

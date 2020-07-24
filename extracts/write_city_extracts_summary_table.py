@@ -7,7 +7,7 @@ from extract_pipeline import ExtractPipeline
 from gtfspy.gtfs import GTFS
 from gtfspy.networks import combined_stop_to_stop_transit_network
 from licenses.adapt_licenses import CITY_ID_TO_LICENSE_TYPE
-from read_to_publish_csv import get_to_publish_csv, get_feeds_from_to_publish_tuple
+from read_to_publish_csv import get_to_publish_df, get_feeds_from_to_publish_tuple
 from settings import TO_PUBLISH_ROOT_OUTPUT_DIR
 
 import pickle
@@ -24,7 +24,7 @@ except:
     cities = []
     for city in sorted(ALL_CITIES):
         print("Obtaining summary table data for " + city)
-        to_publish_csv = get_to_publish_csv()
+        to_publish_csv = get_to_publish_df()
         city_data = to_publish_csv[to_publish_csv["id"] == city].iloc[0]
         city_data_dict = dict()
         city_data_dict["City"] = city_data["name"]

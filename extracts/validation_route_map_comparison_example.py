@@ -4,7 +4,7 @@ import pandas
 
 from extract_pipeline import ExtractPipeline
 from create_multiple_extracts import ALL_CITIES
-from read_to_publish_csv import get_to_publish_csv, get_feeds_from_to_publish_tuple
+from read_to_publish_csv import get_to_publish_df, get_feeds_from_to_publish_tuple
 
 from matplotlib import pyplot as plt
 from gtfspy.mapviz import plot_route_network_from_gtfs, plot_as_routes
@@ -36,7 +36,7 @@ def point_within_bounds(lat, lon, spatial_bounds):
 
 def plot_static_nets():
     for city in ALL_CITIES:
-        to_publish_csv = get_to_publish_csv()
+        to_publish_csv = get_to_publish_df()
         city_data = to_publish_csv[to_publish_csv["id"] == city].iloc[0]
         feeds = get_feeds_from_to_publish_tuple(city_data)
         pipeline = ExtractPipeline(city_data, feeds)
@@ -76,12 +76,11 @@ def plot_static_nets():
         plt.close(ax.figure)
 
 
-
 def plot_event_distributions():
     for example_city in ALL_CITIES: # ["kuopio", "prague"]:
         for time_interval in ["week", "day"]:
 
-            to_publish_csv = get_to_publish_csv()
+            to_publish_csv = get_to_publish_df()
             city_data = to_publish_csv[to_publish_csv["id"] == example_city].iloc[0]
             feeds = get_feeds_from_to_publish_tuple(city_data)
             pipeline = ExtractPipeline(city_data, feeds)
